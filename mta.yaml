@@ -1,0 +1,35 @@
+ID: POC_ALP_3
+_schema-version: '3.2'
+version: 1.0.0
+description: A CAP application with xs-uaa and OData service
+
+parameters:
+  enable-parallel-deployments: true
+
+modules:
+  - name: POC_ALP_3-srv
+    type: nodejs
+    path: srv
+    requires:
+      - name: POC_ALP_3-uaa
+      - name: POC_ALP_3-destination
+    provides:
+      - name: srv-api
+        properties:
+          url: ${default-url}
+    parameters:
+      disk-quota: 512M
+      memory: 512M
+
+resources:
+  # Reuse existing XSUAA service
+  - name: POC_ALP_3-uaa
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service-name: datareports-xsuaa-service
+
+  # Reuse existing Destination service
+  - name: POC_ALP_3-destination
+    type: org.cloudfoundry.existing-service
+    parameters:
+      service-name: datareports-poc-destination-service

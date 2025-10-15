@@ -1,0 +1,142 @@
+cds watch --profile hybrid
+
+cds serve all --with-mocks --in-memory? --profile hybrid 
+( live reload enabled for browsers ) 
+resolving cloud service bindings...
+bound destinations to cf managed service datareports-poc-destination-service:datareports-poc-destination-service-key
+bound auth to cf managed service datareports-xsuaa-service:datareports-xsuaa-service-key
+
+        ___________________________
+ 
+[cds] - loaded model from 4 file(s):
+
+  srv\pos-dsp-annotations.cds
+  srv\external\AMPOS01.csn
+  node_modules\@sap\cds\srv\outbox.cds
+  srv\pos-service.cds
+
+[cds] - using auth strategy {
+  kind: 'xsuaa',
+  impl: 'node_modules\\@sap\\cds\\lib\\srv\\middlewares\\auth\\jwt-auth.js'
+}
+[cds] - serving PosService {
+  at: [ '/pos' ],
+  decl: 'srv\\pos-service.cds:5',
+  impl: 'srv\\pos-service.js'
+}
+[cds] - mocking POS {
+  at: [ '/odata/v4/pos' ],
+  decl: 'srv\\external\\AMPOS01.csn:1591',
+  impl: 'node_modules\\@sap\\cds\\srv\\app-service.js'
+}
+[cds] - server listening on { url: 'http://localhost:4004' }
+[cds] - server v9.4.3 launched in 858 ms
+[cds] - [ terminate with ^C ]
+
+
+        ___________________________
+ 
+[cds] - loaded model from 4 file(s):
+
+  srv\pos-dsp-annotations.cds
+  srv\external\AMPOS01.csn
+  node_modules\@sap\cds\srv\outbox.cds
+  srv\pos-service.cds
+
+[cds] - using auth strategy {
+  kind: 'xsuaa',
+  impl: 'node_modules\\@sap\\cds\\lib\\srv\\middlewares\\auth\\jwt-auth.js'
+}
+[cds] - serving PosService {
+  at: [ '/pos' ],
+  decl: 'srv\\pos-service.cds:5',
+  impl: 'srv\\pos-service.js'
+}
+[cds] - mocking POS {
+  at: [ '/odata/v4/pos' ],
+  decl: 'srv\\external\\AMPOS01.csn:1591',
+  impl: 'node_modules\\@sap\\cds\\srv\\app-service.js'
+}
+[cds] - server listening on { url: 'http://localhost:4004' }
+[cds] - server v9.4.3 launched in 878 ms
+[cds] - [ terminate with ^C ]
+
+[odata] - GET /pos/PosAnalyticsDSP 
+[cds] - connect using bindings from: { registry: '~/.cds-services.json' }
+[cds] - connect to datasphere > odata { destination: 'datasphere' }
+Destination: RemoteService {
+  name: 'datasphere',
+  options: {
+    kind: 'odata-v4',
+    impl: '@sap/cds/srv/remote-service.js',
+    external: true,
+    credentials: { destination: 'datasphere' }
+  },
+  kind: 'odata',
+  model: LinkedCSN {
+    definitions: LinkedDefinitions {
+      PosService: [service],
+      'PosService.PosAnalyticsDSP': [entity],
+      POS: [service],
+      'POS._4AM_POS_01Type': [entity],
+      'POS._4AM_POS_01': [entity],
+      'cds.outbox.Messages': [entity]
+    },
+    meta: {
+      creator: 'CDS Compiler v6.4.2',
+      flavor: 'inferred',
+      minified: true
+    },
+    '$version': '2.0'
+  },
+  handlers: EventHandlers {
+    _initial: [ [Object] ],
+    before: [],
+    on: [ [Object] ],
+    after: [],
+    _error: []
+  },
+  definition: undefined,
+  _source: 'C:\\Users\\nauweam\\cap_alp_3\\node_modules\\@sap\\cds\\srv\\remote-service.js',
+  namespace: 'datasphere',
+  entities: [Function: children] LinkedDefinitions,
+  actions: [Function: children] LinkedDefinitions,
+  datasource: undefined,
+  destinationOptions: {},
+  destination: 'datasphere',
+  path: undefined,
+  requestTimeout: 60000,
+  csrf: undefined,
+  csrfInBatch: undefined,
+  middlewares: { timeout: [Function (anonymous)], csrf: undefined }
+}
+[error] - 500 - ErrorWithCause: Failed to load destination.
+    at C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-accessor.js:52:15
+    at async resolveDestination (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-accessor.js:51:33)
+    ... 2 lines matching cause stack trace ...
+    at async next (C:\Users\nauweam\cap_alp_3\node_modules\@sap\cds\lib\srv\srv-dispatch.js:57:17)
+    at async ApplicationService.handle (C:\Users\nauweam\cap_alp_3\node_modules\@sap\cds\lib\srv\srv-dispatch.js:55:10)
+Caused by:
+Error: No user token (JWT) has been provided. This is strictly necessary for 'OAuth2SAMLBearerAssertion'.
+    at DestinationFromServiceRetriever.throwUserTokenMissing (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-from-service.js:94:15)
+    at DestinationFromServiceRetriever.getAuthTokenForOAuth2UserBasedTokenExchanges (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-from-service.js:178:51)
+    at DestinationFromServiceRetriever.fetchDestinationWithUserExchangeFlows (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-from-service.js:232:34)
+    at DestinationFromServiceRetriever.getDestinationFromDestinationService (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-from-service.js:70:30)
+    at async getDestination (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-accessor.js:74:10)
+    at async resolveDestination (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-accessor.js:51:33)
+    at async C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\http-client\dist\http-client.js:88:37
+    at async ApplicationService.<anonymous> (C:\Users\nauweam\cap_alp_3\srv\pos-service.js:40:20)
+    at async next (C:\Users\nauweam\cap_alp_3\node_modules\@sap\cds\lib\srv\srv-dispatch.js:57:17) {
+  cause: Error: No user token (JWT) has been provided. This is strictly necessary for 'OAuth2SAMLBearerAssertion'.
+      at DestinationFromServiceRetriever.throwUserTokenMissing (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-from-service.js:94:15)
+      at DestinationFromServiceRetriever.getAuthTokenForOAuth2UserBasedTokenExchanges (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-from-service.js:178:51)
+      at DestinationFromServiceRetriever.fetchDestinationWithUserExchangeFlows (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-from-service.js:232:34)
+      at DestinationFromServiceRetriever.getDestinationFromDestinationService (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-from-service.js:70:30)
+      at process.processTicksAndRejections (node:internal/process/task_queues:105:5)
+      at async getDestination (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-accessor.js:74:10)
+      at async resolveDestination (C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\connectivity\dist\scp-cf\destination\destination-accessor.js:51:33)
+      at async C:\Users\nauweam\cap_alp_3\srv\node_modules\@sap-cloud-sdk\http-client\dist\http-client.js:88:37
+      at async ApplicationService.<anonymous> (C:\Users\nauweam\cap_alp_3\srv\pos-service.js:40:20)
+      at async next (C:\Users\nauweam\cap_alp_3\node_modules\@sap\cds\lib\srv\srv-dispatch.js:57:17),
+  code: ''
+}

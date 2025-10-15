@@ -1,0 +1,11 @@
+
+{
+  "requires": {
+    "datasphere": {
+      "kind": "odata-v4",
+      "credentials": {
+        "destination": "datasphere"
+      }
+    }
+  }
+}

@@ -1,22 +1,80 @@
 {
-  "name": "cap_alp_3",
+  "name": "cap-alp",
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "repository": "<Add your repository here>",
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap/cds": "^9",
+    "@sap-cloud-sdk/connectivity": "^3",
+    "@sap-cloud-sdk/http-client": "^3.26.4",
+    "@sap-cloud-sdk/resilience": "^3",
+    "@sap/cds": "^9.3.1",
+    "@sap/ux-ui5-tooling": "^1.19.0",
+    "@sap/xsenv": "^5.4.0",
+    "@sap/xssec": "^4.2.7",
+    "@ui5/cli": "^4.0.30",
     "express": "^4"
   },
-  "engines": {
-    "node": ">=20"
-  },
   "devDependencies": {
-    "@cap-js/sqlite": "^2",
-    "@cap-js/cds-types": "^0.11.0"
+    "@sap/cds-dk": "^9.2.1",
+    "@sap/ux-specification": "^1.128.0",
+    "@types/express": "^5.0.3",
+    "@ui5/cli": "^4.0.30",
+    "copyfiles": "2.4.1",
+    "npm-run-all": "^4.1.5",
+    "typescript": "~5.2.2"
   },
   "scripts": {
-    "start": "cds-serve"
+    "start": "cds run",
+    "watch-alp-v4": "cds watch --open alp-v4/webapp/index.html?sap-ui-xx-viewCache=false",
+    "dev": "cds watch",
+    "build": "cds build",
+    "cflogin:maxeda:dev": "cf login -a https://api.cf.eu30.hana.ondemand.com/ --sso",
+    "cftarget:maxedev": "cf target -o \"Maxeda DIY B.V._maxeda-bwz-dev\" -s \"BWZ_dev\"",
+    "mta:build": "mbt build",
+    "deploy": "cf deploy mta_archives/cap-alp.mtar",
+    "approuter:local": "npm run local --prefix ./localapprouter",
+    "srv:local": "npm run dev --prefix ./srv"
+  },
+  "eslintConfig": {
+    "extends": "eslint:recommended",
+    "env": {
+      "es2020": true,
+      "node": true,
+      "jest": true,
+      "mocha": true
+    },
+    "globals": {
+      "SELECT": true,
+      "INSERT": true,
+      "UPDATE": true,
+      "DELETE": true,
+      "CREATE": true,
+      "DROP": true,
+      "CDL": true,
+      "CQL": true,
+      "CXL": true,
+      "cds": true
+    },
+    "rules": {
+      "no-console": "off",
+      "require-atomic-updates": "off"
+    }
+  },
+  "cds": {
+    "features": {
+      "odata_new_parser": true
+    },
+    "requires": {
+        "external": {
+          "kind": "odata",
+          "model": "srv/external/AMPOS01"
+    },
+    "db": false
+  },
+  "folders": {
+    "db": "false"
+  }
   }
 }

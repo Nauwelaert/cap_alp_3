@@ -23,3 +23,9 @@ File or Folder | Purpose
 ## Learn More
 
 Learn more at https://cap.cloud.sap/docs/get-started/.
+
+From the root folder:
+  - Bind destination service:
+    - cds bind -2 datareports-poc-destination-service
+  - Bind XSUAA service:
+    - cds bind -2 datareports-xsuaa-service

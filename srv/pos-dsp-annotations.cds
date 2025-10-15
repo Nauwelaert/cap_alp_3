@@ -1,0 +1,84 @@
+using { PosService } from './pos-service';
+
+// 1. Aggregation and analytical annotations
+annotate PosService.PosAnalyticsDSP with @(
+  Aggregation.ApplySupported: {
+    Transformations: [
+      'aggregate',
+      'groupby',
+      'search'      
+    ],
+    GroupableProperties: [
+      _0SALESORG_1,
+      _0PLANT_1
+
+    ],
+    AggregatableProperties: [
+      {
+        $Type : 'Aggregation.AggregatablePropertyType',
+        Property: CK_SALES_QUANTITY
+      },
+      {
+        $Type : 'Aggregation.AggregatablePropertyType',
+        Property: _0RPA_SAT
+      }
+    ]
+  },
+  Aggregation.CustomAggregate #CK_SALES_QUANTITY: 'Edm.Double',
+  Aggregation.CustomAggregate #_0RPA_SAT: 'Edm.Decimal',
+){
+  CK_SALES_QUANTITY @Analytics.Measure @Aggregation.default: #SUM;
+  _0RPA_SAT @Analytics.Measure @Aggregation.default: #SUM;
+};
+
+
+// 3. presentation an UI settings Selection Fields and Line Item and presentation variant
+annotate PosService.PosAnalyticsDSP with @(
+  UI: {
+    PresentationVariant: {
+            Total: [
+              CK_SALES_QUANTITY,
+              _0RPA_SAT
+            ],
+    Visualizations: [
+              '@UI.LineItem'
+            ],
+    GroupBy: [
+      _0SALESORG_1,
+      _0PLANT_1
+    ]
+    },
+    SelectionFields: [
+      _0SALESORG_1,
+      _0PLANT_1
+    ],
+    Identification: [
+    { $Type: 'UI.DataField', Value: _0SALESORG_1 },
+    { $Type: 'UI.DataField', Value: _0PLANT_1 }
+  ],
+    LineItem: [
+      { $Type : 'UI.DataField', Value : _0SALESORG_1},
+      { $Type : 'UI.DataField', Value : _0PLANT_1},
+      { $Type : 'UI.DataField', Value : CK_SALES_QUANTITY },
+      { $Type : 'UI.DataField', Value : _0RPA_SAT }
+    ]
+  }
+);
+
+// annotate chart
+annotate PosService.PosAnalyticsDSP with @(
+    UI.Chart #alpChart : {
+        $Type : 'UI.ChartDefinitionType',
+        ChartType : #Bar,
+        Dimensions : [
+            _0SALESORG_1,
+            _0PLANT_1
+        ],
+        Measures : [
+            CK_SALES_QUANTITY,
+            _0RPA_SAT
+        ],
+    }
+);
+
+

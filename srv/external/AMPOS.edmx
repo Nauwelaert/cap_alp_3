@@ -1,0 +1,1531 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+<edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Aggregation.V1.xml">
+<edmx:Include Alias="Aggregation" Namespace="Org.OData.Aggregation.V1"/>
+</edmx:Reference>
+<edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Analytics.xml">
+<edmx:Include Alias="Analytics" Namespace="com.sap.vocabularies.Analytics.v1"/>
+</edmx:Reference>
+<edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Capabilities.V1.xml">
+<edmx:Include Alias="Capabilities" Namespace="Org.OData.Capabilities.V1"/>
+</edmx:Reference>
+<edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/Common.xml">
+<edmx:Include Alias="Common" Namespace="com.sap.vocabularies.Common.v1"/>
+</edmx:Reference>
+<edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Core.V1.xml">
+<edmx:Include Alias="Core" Namespace="Org.OData.Core.V1"/>
+</edmx:Reference>
+<edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/DataIntegration.xml">
+<edmx:Include Alias="DataIntegration" Namespace="com.sap.vocabularies.DataIntegration.v1"/>
+</edmx:Reference>
+<edmx:Reference Uri="https://oasis-tcs.github.io/odata-vocabularies/vocabularies/Org.OData.Measures.V1.xml">
+<edmx:Include Alias="Measures" Namespace="Org.OData.Measures.V1"/>
+</edmx:Reference>
+<edmx:Reference Uri="https://sap.github.io/odata-vocabularies/vocabularies/UI.xml">
+<edmx:Include Alias="UI" Namespace="com.sap.vocabularies.UI.v1"/>
+</edmx:Reference>
+<edmx:DataServices>
+<Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="InaApplicationService">
+<EntityContainer Name="EntityContainer">
+<EntitySet Name="_4AM_POS_01" EntityType="InaApplicationService._4AM_POS_01Parameters">
+<NavigationPropertyBinding Path="Set/Parameters" Target="_4AM_POS_01"/>
+</EntitySet>
+</EntityContainer>
+<EntityType Name="_4AM_POS_01Type">
+<Property Name="_0ALTITUDE_Site" Type="Edm.Decimal" Precision="17" Scale="3"/>
+<Property Name="_0APO_LOCFR_Site" Type="Edm.String" MaxLength="20"/>
+<Property Name="_0BASE_UOM" Type="Edm.String" MaxLength="3"/>
+<Property Name="_0BASE_UOM_Article" Type="Edm.String" MaxLength="3"/>
+<Property Name="_0BPARTNER_Site" Type="Edm.String" MaxLength="10"/>
+<Property Name="_0CALDAY_1" Type="Edm.Date"/>
+<Property Name="_0CALMONTH" Type="Edm.String" MaxLength="6"/>
+<Property Name="_0CALQUARTER" Type="Edm.String" MaxLength="5"/>
+<Property Name="_0CALWEEK" Type="Edm.String" MaxLength="6"/>
+<Property Name="_0CALYEAR" Type="Edm.String" MaxLength="4"/>
+<Property Name="_0COMP_CODE_Sales_Organiza" Type="Edm.String" MaxLength="4"/>
+<Property Name="_0CONT_UNIT_Article" Type="Edm.String" MaxLength="3"/>
+<Property Name="_0COUNTRY_Sales_Organiza" Type="Edm.String" MaxLength="3"/>
+<Property Name="_0COUNTRY_Site" Type="Edm.String" MaxLength="3"/>
+<Property Name="_0COUNTY_CDE_Site" Type="Edm.String" MaxLength="3"/>
+<Property Name="_0CREATEDON_Article" Type="Edm.String" MaxLength="8"/>
+<Property Name="_0CURRENCY" Type="Edm.String" MaxLength="5"/>
+<Property Name="_0CURRENCY_Sales_Organiza" Type="Edm.String" MaxLength="5"/>
+<Property Name="_0DEL_FLAG_Article" Type="Edm.String" MaxLength="1"/>
+<Property Name="_0DISTR_CHAN_Site" Type="Edm.String" MaxLength="2"/>
+<Property Name="_0DIVISION_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="_0DIVISION_Site" Type="Edm.String" MaxLength="2"/>
+<Property Name="_0DOC_CURRCY" Type="Edm.String" MaxLength="5"/>
+<Property Name="_0EANUPC_Article" Type="Edm.String" MaxLength="18"/>
+<Property Name="_0FACTCAL_ID_Site" Type="Edm.String" MaxLength="2"/>
+<Property Name="_0FISCPER" Type="Edm.String" MaxLength="7"/>
+<Property Name="_0FISCPER3" Type="Edm.String" MaxLength="3"/>
+<Property Name="_0FISCVARNT" Type="Edm.String" MaxLength="2"/>
+<Property Name="_0FISCVARNT_Sales_Organiza" Type="Edm.String" MaxLength="2"/>
+<Property Name="_0FISCYEAR" Type="Edm.String" MaxLength="4"/>
+<Property Name="_0GN_PAR_SSY_Site" Type="Edm.String" MaxLength="2"/>
+<Property Name="_0INT_CUST_Sales_Organiza" Type="Edm.String" MaxLength="10"/>
+<Property Name="_0LATITUDE_Site" Type="Edm.Decimal" Precision="15" Scale="12"/>
+<Property Name="_0LOC_CURRCY" Type="Edm.String" MaxLength="5"/>
+<Property Name="_0LOC_CURRCY_Site" Type="Edm.String" MaxLength="5"/>
+<Property Name="_0LOGSYS_Article" Type="Edm.String" MaxLength="10"/>
+<Property Name="_0LOGSYS_Sales_Organiza" Type="Edm.String" MaxLength="10"/>
+<Property Name="_0LOGSYS_Site" Type="Edm.String" MaxLength="10"/>
+<Property Name="_0LONGITUDE_Site" Type="Edm.Decimal" Precision="15" Scale="12"/>
+<Property Name="_0MATERIAL_1" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0MATL_CAT_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="_0MATL_GROUP_Article" Type="Edm.String" MaxLength="9"/>
+<Property Name="_0MATL_TYPE_Article" Type="Edm.String" MaxLength="4"/>
+<Property Name="_0NET_CONT_Article" Type="Edm.Decimal" Precision="17" Scale="3"/>
+<Property Name="_0PLANT_1" Type="Edm.String" MaxLength="4"/>
+<Property Name="_0PLANTCAT_Site" Type="Edm.String" MaxLength="1"/>
+<Property Name="_0POSTAL_CD_Site" Type="Edm.String" MaxLength="10"/>
+<Property Name="_0POSTCD_GIS_Site" Type="Edm.String" MaxLength="10"/>
+<Property Name="_0PRECISID_Site" Type="Edm.String" MaxLength="4"/>
+<Property Name="_0PROD_HIER_Article" Type="Edm.String" MaxLength="18"/>
+<Property Name="_0PURCH_ORG_Site" Type="Edm.String" MaxLength="4"/>
+<Property Name="_0REGION_Site" Type="Edm.String" MaxLength="3"/>
+<Property Name="_0RF_DEPSTOR_Site" Type="Edm.String" MaxLength="4"/>
+<Property Name="_0RF_STORETY_Site" Type="Edm.String" MaxLength="1"/>
+<Property Name="_0RPA_CNR" Type="Edm.Decimal" Precision="17" Scale="3"/>
+<Property Name="_0RPA_NSA" Type="Edm.Decimal" Precision="17" Scale="2"/>
+<Property Name="_0RPA_SAT" Type="Edm.Decimal" Precision="17" Scale="2"/>
+<Property Name="_0RPA_TAM" Type="Edm.Decimal" Precision="17" Scale="2"/>
+<Property Name="_0RPA_TAT" Type="Edm.Decimal" Precision="17" Scale="2"/>
+<Property Name="_0RPA_TIX" Type="Edm.String" MaxLength="10"/>
+<Property Name="_0RPA_TNR" Type="Edm.String" MaxLength="20"/>
+<Property Name="_0RPA_WGH1" Type="Edm.String" MaxLength="9"/>
+<Property Name="_0RPA_WGH1_Article" Type="Edm.String" MaxLength="9"/>
+<Property Name="_0RPA_WGH2" Type="Edm.String" MaxLength="9"/>
+<Property Name="_0RPA_WGH2_Article" Type="Edm.String" MaxLength="9"/>
+<Property Name="_0RPA_WGH3" Type="Edm.String" MaxLength="9"/>
+<Property Name="_0RPA_WGH3_Article" Type="Edm.String" MaxLength="9"/>
+<Property Name="_0RPA_WGH4" Type="Edm.String" MaxLength="9"/>
+<Property Name="_0RPA_WGH4_Article" Type="Edm.String" MaxLength="9"/>
+<Property Name="_0RPA_WID" Type="Edm.String" MaxLength="10"/>
+<Property Name="_0RT_AREA_Site" Type="Edm.String" MaxLength="6"/>
+<Property Name="_0RT_CUSTPL_Site" Type="Edm.String" MaxLength="10"/>
+<Property Name="_0RT_LAYMD_Site" Type="Edm.String" MaxLength="10"/>
+<Property Name="_0RT_LBLDATF_Site" Type="Edm.String" MaxLength="8"/>
+<Property Name="_0RT_LBLDATT_Site" Type="Edm.String" MaxLength="8"/>
+<Property Name="_0RT_LCLDAT_Site" Type="Edm.String" MaxLength="8"/>
+<Property Name="_0RT_LOPDAT_Site" Type="Edm.String" MaxLength="8"/>
+<Property Name="_0RT_PRBAND_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="_0RT_SALHOUR" Type="Edm.String" MaxLength="2"/>
+<Property Name="_0SALESORG_1" Type="Edm.String" MaxLength="4"/>
+<Property Name="_0SALESORG_Site" Type="Edm.String" MaxLength="4"/>
+<Property Name="_0SALES_DIST_Site" Type="Edm.String" MaxLength="6"/>
+<Property Name="_0SRCID_Site" Type="Edm.String" MaxLength="4"/>
+<Property Name="_0SR_COMMDTY_Article" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0STAT_CURR_Sales_Organiza" Type="Edm.String" MaxLength="5"/>
+<Property Name="CALMONTH_Calendar_Day" Type="Edm.String" MaxLength="6"/>
+<Property Name="CALQUARTER_Calendar_Day" Type="Edm.String" MaxLength="5"/>
+<Property Name="CALWEEK_Calendar_Day" Type="Edm.String" MaxLength="6"/>
+<Property Name="CC_INFOPROVIDER" Type="Edm.String" MaxLength="7"/>
+<Property Name="CC_Peer_Group_1_Site" Type="Edm.String" MaxLength="5"/>
+<Property Name="CC_Peer_Group_2_Site" Type="Edm.String" MaxLength="5"/>
+<Property Name="CC_Peer_Group_4_Site" Type="Edm.Int64"/>
+<Property Name="CK_SALES_QUANTITY" Type="Edm.Double"/>
+<Property Name="CK_SALES_QUAN_N__aaa" Type="Edm.Decimal" Scale="variable"/>
+<Property Name="C_ACER006_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="C_ASTY011_Article" Type="Edm.String" MaxLength="4"/>
+<Property Name="C_ASTY012_Article" Type="Edm.String" MaxLength="4"/>
+<Property Name="DATE_SAP_Calendar_Day" Type="Edm.String" MaxLength="8"/>
+<Property Name="DAY_OF_WEEK_Calendar_Day" Type="Edm.String" MaxLength="2"/>
+<Property Name="MONTH_Calendar_Day" Type="Edm.String" MaxLength="2"/>
+<Property Name="Peer_Group_1_Site" Type="Edm.String" MaxLength="4"/>
+<Property Name="QUARTER_Calendar_Day" Type="Edm.String" MaxLength="2"/>
+<Property Name="SeqNr_Site" Type="Edm.Int64"/>
+<Property Name="YEAR_Calendar_Day" Type="Edm.String" MaxLength="4"/>
+<Property Name="ZARTSTB_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZARTSTB_F_Article" Type="Edm.String" MaxLength="8"/>
+<Property Name="ZASSORTBC_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZASSORTBD_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZASSORTBE_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZASSORTBL_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZASSORTBR_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZASSORTPL_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZBKLUS_Article" Type="Edm.String" MaxLength="1"/>
+<Property Name="ZBRAND_ID_Article" Type="Edm.String" MaxLength="4"/>
+<Property Name="ZDISTP_Article" Type="Edm.String" MaxLength="3"/>
+<Property Name="ZFORMAT_Site" Type="Edm.String" MaxLength="1"/>
+<Property Name="ZIMPORT_Article" Type="Edm.String" MaxLength="1"/>
+<Property Name="ZLOCART_Article" Type="Edm.String" MaxLength="1"/>
+<Property Name="ZMATL_EN_Article" Type="Edm.String" MaxLength="40"/>
+<Property Name="ZMATL_FR_Article" Type="Edm.String" MaxLength="40"/>
+<Property Name="ZMATL_NL_Article" Type="Edm.String" MaxLength="40"/>
+<Property Name="ZMFRNR_Article" Type="Edm.String" MaxLength="10"/>
+<Property Name="ZOLDMAT_Article" Type="Edm.String" MaxLength="18"/>
+<Property Name="ZORDRANST_Article" Type="Edm.String" MaxLength="1"/>
+<Property Name="ZPDEPT_Article" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZPGROUP_Article" Type="Edm.String" MaxLength="3"/>
+<Property Name="ZPLEINAIR_Article" Type="Edm.String" MaxLength="1"/>
+<Property Name="ZPPSLARGE_Article" Type="Edm.String" MaxLength="1"/>
+<Property Name="ZRCLDAT_Site" Type="Edm.String" MaxLength="8"/>
+<Property Name="ZROPDAT_Site" Type="Edm.String" MaxLength="8"/>
+<Property Name="ZRPA_NDA" Type="Edm.Decimal" Precision="17" Scale="3"/>
+<Property Name="ZSALTIME" Type="Edm.String" MaxLength="6"/>
+<Property Name="ZSGRADE_Site" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZSORTBC_Article" Type="Edm.String" MaxLength="10"/>
+<Property Name="ZSORTBD_Article" Type="Edm.String" MaxLength="10"/>
+<Property Name="ZSORTBE_Article" Type="Edm.String" MaxLength="10"/>
+<Property Name="ZSORTBL_Article" Type="Edm.String" MaxLength="10"/>
+<Property Name="ZSORTBR_Article" Type="Edm.String" MaxLength="10"/>
+<Property Name="ZSORTPL_Article" Type="Edm.String" MaxLength="10"/>
+<Property Name="ZSTPROF_Site" Type="Edm.String" MaxLength="4"/>
+<Property Name="ZSTRCONCT_Site" Type="Edm.String" MaxLength="25"/>
+<Property Name="ZTNR_DAY" Type="Edm.String" MaxLength="28"/>
+<Property Name="ZULANG1_Site" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZULANG2_Site" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZULANG3_Site" Type="Edm.String" MaxLength="2"/>
+<Property Name="ZUMAIL1_Site" Type="Edm.String" MaxLength="60"/>
+<Property Name="ZUMAIL2_Site" Type="Edm.String" MaxLength="60"/>
+<Property Name="ZUMAIL3_Site" Type="Edm.String" MaxLength="60"/>
+<Property Name="_0CALDAY" Type="Edm.Date"/>
+<Property Name="_0MATERIAL" Type="Edm.String"/>
+<Property Name="_0PLANT" Type="Edm.String"/>
+<Property Name="_0SALESORG" Type="Edm.String"/>
+<Property Name="_0CALDAY_T" Type="Edm.Int32"/>
+<Property Name="_0COUNTRY_Sales_Organiza_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="_0COUNTRY_Site_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="_0DISTR_CHAN_Site_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="_0DIVISION_Article_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="_0DIVISION_Site_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="_0MATERIAL_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0MATL_CAT_Article_T" Type="Edm.String" MaxLength="60"/>
+<Property Name="_0MATL_GROUP_Article_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="_0MATL_TYPE_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0PLANT_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0PROD_HIER_Article_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="_0REGION_Site_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="_0RPA_WGH1_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0RPA_WGH2_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0RPA_WGH2_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0RPA_WGH3_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0RPA_WGH3_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0RPA_WGH4_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0RPA_WGH4_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0RT_PRBAND_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="_0SALESORG_T" Type="Edm.String" MaxLength="60"/>
+<Property Name="_0SALESORG_Site_T" Type="Edm.String" MaxLength="60"/>
+<Property Name="_0SALES_DIST_Site_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="CALMONTH_Calendar_Day_T" Type="Edm.String" MaxLength="50"/>
+<Property Name="CALQUARTER_Calendar_Day_T" Type="Edm.String" MaxLength="50"/>
+<Property Name="CC_INFOPROVIDER_T" Type="Edm.String" MaxLength="500"/>
+<Property Name="C_ACER006_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="C_ASTY012_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="DAY_OF_WEEK_Calendar_Day_T" Type="Edm.String" MaxLength="50"/>
+<Property Name="ZARTSTB_Article_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="ZASSORTBC_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="ZASSORTBD_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="ZASSORTBE_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="ZASSORTBL_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="ZASSORTBR_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="ZASSORTPL_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="ZBKLUS_Article_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="ZBRAND_ID_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="ZDISTP_Article_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="ZPDEPT_Article_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="ZPGROUP_Article_T" Type="Edm.String" MaxLength="40"/>
+<Property Name="ZPPSLARGE_Article_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="ZSGRADE_Site_T" Type="Edm.String" MaxLength="20"/>
+<Property Name="ZSTPROF_Site_T" Type="Edm.String" MaxLength="40"/>
+<NavigationProperty Name="Parameters" Type="InaApplicationService._4AM_POS_01Parameters" Partner="Set"/>
+</EntityType>
+<EntityType Name="_4AM_POS_01Parameters">
+<Key>
+<PropertyRef Name="IP_START_DATE"/>
+<PropertyRef Name="IP_END_DATE"/>
+</Key>
+<Property Name="IP_START_DATE" Type="Edm.Date" Nullable="false"/>
+<Property Name="IP_END_DATE" Type="Edm.Date" Nullable="false"/>
+<NavigationProperty Name="Set" Type="Collection(InaApplicationService._4AM_POS_01Type)" Partner="Parameters" ContainsTarget="true"/>
+</EntityType>
+<Annotations Target="InaApplicationService._4AM_POS_01Type">
+<Annotation Term="Common.Label" String="POS POC model"/>
+<Annotation Term="DataIntegration.OriginalName" String="4AM_POS_01"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0ALTITUDE_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0ALTITUDE_Site"/>
+<Annotation Term="Common.Label" String="Geographical Height"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0APO_LOCFR_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0APO_LOCFR_Site"/>
+<Annotation Term="Common.Label" String="APO Start Location"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0BASE_UOM">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0BASE_UOM"/>
+<Annotation Term="Common.Label" String="Base Unit"/>
+<Annotation Term="Common.IsUnit" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0BASE_UOM_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0BASE_UOM_Article"/>
+<Annotation Term="Common.Label" String="Base Unit"/>
+<Annotation Term="Common.IsUnit" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0BPARTNER_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0BPARTNER_Site"/>
+<Annotation Term="Common.Label" String="Business Partner"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0CALDAY_1">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0CALDAY"/>
+<Annotation Term="Common.Label" String="Calendar Day"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0CALMONTH">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0CALMONTH"/>
+<Annotation Term="Common.Label" String="Calendar Year/Month"/>
+<Annotation Term="Common.IsCalendarYearMonth" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0CALQUARTER">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0CALQUARTER"/>
+<Annotation Term="Common.Label" String="Calendar Year/Quarter"/>
+<Annotation Term="Common.IsCalendarYearQuarter" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0CALWEEK">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0CALWEEK"/>
+<Annotation Term="Common.Label" String="Calendar Year/Week"/>
+<Annotation Term="Common.IsCalendarYearWeek" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0CALYEAR">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0CALYEAR"/>
+<Annotation Term="Common.Label" String="Calendar Year"/>
+<Annotation Term="Common.IsCalendarYear" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0COMP_CODE_Sales_Organiza">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0COMP_CODE_Sales_Organiza"/>
+<Annotation Term="Common.Label" String="Company code"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0CONT_UNIT_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0CONT_UNIT_Article"/>
+<Annotation Term="Common.Label" String="Content unit"/>
+<Annotation Term="Common.IsUnit" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0COUNTRY_Sales_Organiza">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0COUNTRY_Sales_Organiza"/>
+<Annotation Term="Common.Label" String="Country"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0COUNTRY_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0COUNTRY_Site"/>
+<Annotation Term="Common.Label" String="Country"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0COUNTY_CDE_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0COUNTY_CDE_Site"/>
+<Annotation Term="Common.Label" String="County Code"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0CREATEDON_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0CREATEDON_Article"/>
+<Annotation Term="Common.Label" String="Created on"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0CURRENCY">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0CURRENCY"/>
+<Annotation Term="Common.Label" String="Currency"/>
+<Annotation Term="Common.IsCurrency" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0CURRENCY_Sales_Organiza">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0CURRENCY_Sales_Organiza"/>
+<Annotation Term="Common.Label" String="Currency"/>
+<Annotation Term="Common.IsCurrency" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0DEL_FLAG_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0DEL_FLAG_Article"/>
+<Annotation Term="Common.Label" String="Deletion flag"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0DISTR_CHAN_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0DISTR_CHAN_Site"/>
+<Annotation Term="Common.Label" String="Distribution Channel"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0DIVISION_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0DIVISION_Article"/>
+<Annotation Term="Common.Label" String="Division"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0DIVISION_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0DIVISION_Site"/>
+<Annotation Term="Common.Label" String="Division"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0DOC_CURRCY">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0DOC_CURRCY"/>
+<Annotation Term="Common.Label" String="Document currency"/>
+<Annotation Term="Common.IsCurrency" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0EANUPC_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0EANUPC_Article"/>
+<Annotation Term="Common.Label" String="EAN/UPC"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0FACTCAL_ID_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0FACTCAL_ID_Site"/>
+<Annotation Term="Common.Label" String="Factory Calendar ID"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0FISCPER">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0FISCPER"/>
+<Annotation Term="Common.Label" String="Fiscal year / period"/>
+<Annotation Term="Common.IsFiscalYearPeriod" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0FISCPER3">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0FISCPER3"/>
+<Annotation Term="Common.Label" String="Posting period"/>
+<Annotation Term="Common.IsFiscalPeriod" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0FISCVARNT">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0FISCVARNT"/>
+<Annotation Term="Common.Label" String="Fiscal Year Variant"/>
+<Annotation Term="Common.IsFiscalYearVariant" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0FISCVARNT_Sales_Organiza">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0FISCVARNT_Sales_Organiza"/>
+<Annotation Term="Common.Label" String="Fiscal Year Variant"/>
+<Annotation Term="Common.IsFiscalYearVariant" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0FISCYEAR">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0FISCYEAR"/>
+<Annotation Term="Common.Label" String="Fiscal year"/>
+<Annotation Term="Common.IsFiscalYear" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0GN_PAR_SSY_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0GN_PAR_SSY_Site"/>
+<Annotation Term="Common.Label" String="Partner Srce System"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0INT_CUST_Sales_Organiza">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0INT_CUST_Sales_Organiza"/>
+<Annotation Term="Common.Label" String="Customer Number for Internal Settlement"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0LATITUDE_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0LATITUDE_Site"/>
+<Annotation Term="Common.Label" String="Latitude"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0LOC_CURRCY">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0LOC_CURRCY"/>
+<Annotation Term="Common.Label" String="Local currency"/>
+<Annotation Term="Common.IsCurrency" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0LOC_CURRCY_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0LOC_CURRCY_Site"/>
+<Annotation Term="Common.Label" String="Local currency"/>
+<Annotation Term="Common.IsCurrency" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0LOGSYS_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0LOGSYS_Article"/>
+<Annotation Term="Common.Label" String="Source System"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0LOGSYS_Sales_Organiza">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0LOGSYS_Sales_Organiza"/>
+<Annotation Term="Common.Label" String="Source System"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0LOGSYS_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0LOGSYS_Site"/>
+<Annotation Term="Common.Label" String="Source System"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0LONGITUDE_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0LONGITUDE_Site"/>
+<Annotation Term="Common.Label" String="Longitude"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0MATERIAL_1">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0MATERIAL"/>
+<Annotation Term="Common.Label" String="Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0MATL_CAT_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0MATL_CAT_Article"/>
+<Annotation Term="Common.Label" String="Article Category"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0MATL_GROUP_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0MATL_GROUP_Article"/>
+<Annotation Term="Common.Label" String="Merchandise Category"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0MATL_TYPE_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0MATL_TYPE_Article"/>
+<Annotation Term="Common.Label" String="Article Type"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0NET_CONT_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0NET_CONT_Article"/>
+<Annotation Term="Common.Label" String="Net contents"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0PLANT_1">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0PLANT"/>
+<Annotation Term="Common.Label" String="Site"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0PLANTCAT_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0PLANTCAT_Site"/>
+<Annotation Term="Common.Label" String="Site Category"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0POSTAL_CD_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0POSTAL_CD_Site"/>
+<Annotation Term="Common.Label" String="Postal Code"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0POSTCD_GIS_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0POSTCD_GIS_Site"/>
+<Annotation Term="Common.Label" String="CAM:PstCde(Geo-Rel.)"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0PRECISID_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0PRECISID_Site"/>
+<Annotation Term="Common.Label" String="Geo-precision"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0PROD_HIER_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0PROD_HIER_Article"/>
+<Annotation Term="Common.Label" String="Prod.hierarchy"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0PURCH_ORG_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0PURCH_ORG_Site"/>
+<Annotation Term="Common.Label" String="Purchasing org."/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0REGION_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0REGION_Site"/>
+<Annotation Term="Common.Label" String="Region"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RF_DEPSTOR_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RF_DEPSTOR_Site"/>
+<Annotation Term="Common.Label" String="Superor. Dept. Store"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RF_STORETY_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RF_STORETY_Site"/>
+<Annotation Term="Common.Label" String="Store Category"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_CNR">
+<Annotation Term="Common.Label" String="Nr.of Tickets"/>
+<Annotation Term="Analytics.measure" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_CNR"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_NSA">
+<Annotation Term="Common.Label" String="Normal Sales Value"/>
+<Annotation Term="Analytics.measure" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_NSA"/>
+<Annotation Term="Measures.ISOCurrency" Path="0DOC_CURRCY"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_SAT">
+<Annotation Term="Common.Label" String="Sales RetVal"/>
+<Annotation Term="Analytics.measure" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_SAT"/>
+<Annotation Term="Measures.ISOCurrency" Path="0DOC_CURRCY"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_TAM">
+<Annotation Term="Common.Label" String="Tax Amount"/>
+<Annotation Term="Analytics.measure" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_TAM"/>
+<Annotation Term="Measures.ISOCurrency" Path="0DOC_CURRCY"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_TAT">
+<Annotation Term="Common.Label" String="Tender Value"/>
+<Annotation Term="Analytics.measure" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_TAT"/>
+<Annotation Term="Measures.ISOCurrency" Path="0DOC_CURRCY"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_TIX">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_TIX"/>
+<Annotation Term="Common.Label" String="Transaction Index"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_TNR">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_TNR"/>
+<Annotation Term="Common.Label" String="Transaction Number"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH1">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH1"/>
+<Annotation Term="Common.Label" String="Subfamily"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH1_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH1_Article"/>
+<Annotation Term="Common.Label" String="Subfamily"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH2">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH2"/>
+<Annotation Term="Common.Label" String="Department"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH2_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH2_Article"/>
+<Annotation Term="Common.Label" String="Department"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH3">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH3"/>
+<Annotation Term="Common.Label" String="Product group"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH3_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH3_Article"/>
+<Annotation Term="Common.Label" String="Product group"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH4">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH4"/>
+<Annotation Term="Common.Label" String="DIY"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH4_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH4_Article"/>
+<Annotation Term="Common.Label" String="DIY"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WID">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WID"/>
+<Annotation Term="Common.Label" String="POS Number"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RT_AREA_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RT_AREA_Site"/>
+<Annotation Term="Common.Label" String="Sales Area"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RT_CUSTPL_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RT_CUSTPL_Site"/>
+<Annotation Term="Common.Label" String="Site Customer No."/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RT_LAYMD_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RT_LAYMD_Site"/>
+<Annotation Term="Common.Label" String="Store size"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RT_LBLDATF_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RT_LBLDATF_Site"/>
+<Annotation Term="Common.Label" String="Store Lock Time (fr)"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RT_LBLDATT_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RT_LBLDATT_Site"/>
+<Annotation Term="Common.Label" String="Store Lock Time (to)"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RT_LCLDAT_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RT_LCLDAT_Site"/>
+<Annotation Term="Common.Label" String="Store Closing Date"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RT_LOPDAT_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RT_LOPDAT_Site"/>
+<Annotation Term="Common.Label" String="Store Opening Date"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RT_PRBAND_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RT_PRBAND_Article"/>
+<Annotation Term="Common.Label" String="Price Band Category"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RT_SALHOUR">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0RT_SALHOUR"/>
+<Annotation Term="Common.Label" String="Hour of Sale"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0SALESORG_1">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0SALESORG"/>
+<Annotation Term="Common.Label" String="Sales Organization"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0SALESORG_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0SALESORG_Site"/>
+<Annotation Term="Common.Label" String="Sales Organization"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0SALES_DIST_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0SALES_DIST_Site"/>
+<Annotation Term="Common.Label" String="Sales District"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0SRCID_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0SRCID_Site"/>
+<Annotation Term="Common.Label" String="DatSrc.ID of GeoLoct"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0SR_COMMDTY_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0SR_COMMDTY_Article"/>
+<Annotation Term="Common.Label" String="Commodity"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0STAT_CURR_Sales_Organiza">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="0STAT_CURR_Sales_Organiza"/>
+<Annotation Term="Common.Label" String="Statist. curr."/>
+<Annotation Term="Common.IsCurrency" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CALMONTH_Calendar_Day">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Calendar Month"/>
+<Annotation Term="Common.IsCalendarYearMonth" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CALQUARTER_Calendar_Day">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Calendar Quarter"/>
+<Annotation Term="Common.IsCalendarYearQuarter" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CALWEEK_Calendar_Day">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Calendar Week"/>
+<Annotation Term="Common.IsCalendarYearWeek" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CC_INFOPROVIDER">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="InfoProvider"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CC_Peer_Group_1_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Peer Group 1"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CC_Peer_Group_2_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Peer Group 2"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CC_Peer_Group_4_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Peer Group 4"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CK_SALES_QUANTITY">
+<Annotation Term="Common.Label" String="Sales Quantity"/>
+<Annotation Term="Analytics.measure" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CK_SALES_QUAN_N__aaa">
+<Annotation Term="Common.Label" String="Sales Quantity no dim"/>
+<Annotation Term="UI.Hidden" Bool="true"/>
+<Annotation Term="Analytics.measure" Bool="true"/>
+<Annotation Term="DataIntegration.OriginalName" String="CK_SALES_QUAN_Nââaaa"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/C_ACER006_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Certification"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/C_ASTY011_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Style/trend group -"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/C_ASTY012_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Style/trend group"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/DATE_SAP_Calendar_Day">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Date (String)"/>
+<Annotation Term="Common.IsCalendarDate" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/DAY_OF_WEEK_Calendar_Day">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Day of Week"/>
+<Annotation Term="Common.IsDayOfCalendarYear" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/MONTH_Calendar_Day">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Month"/>
+<Annotation Term="Common.IsCalendarMonth" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/Peer_Group_1_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Peer Group 3"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/QUARTER_Calendar_Day">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Quarter"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/SeqNr_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="SeqNr"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/YEAR_Calendar_Day">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Year"/>
+<Annotation Term="Common.IsCalendarYear" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZARTSTB_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Art. Stat. (Basic)"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZARTSTB_F_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Art.Stat.(B) Val.Fr."/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTBC_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Ass. Cityshop"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTBD_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Ass. Briko Depot"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTBE_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Ass. E-Shop"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTBL_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Ass. Brico Lux."/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTBR_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Ass. Brico"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTPL_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Ass. Plan-it"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZBKLUS_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Assortment Praxis"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZBRAND_ID_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Brand"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZDISTP_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Distribution profile"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZFORMAT_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Format"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZIMPORT_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Import"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZLOCART_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Loc Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZMATL_EN_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Article desc. EN"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZMATL_FR_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Article desc. FR"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZMATL_NL_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Article desc. NL"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZMFRNR_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Manufacturer"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZOLDMAT_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Old article number"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZORDRANST_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Ord Ranst"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZPDEPT_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Praxis Department"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZPGROUP_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Praxis Group"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZPLEINAIR_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Plein Air"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZPPSLARGE_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="PPS large"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZRCLDAT_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Renovation: Closed"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZROPDAT_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Renovation: Opened"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZRPA_NDA">
+<Annotation Term="Common.Label" String="#Art/Ticket"/>
+<Annotation Term="Analytics.measure" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSALTIME">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Sales Time"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSGRADE_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Store Grade"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSORTBC_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Sortcode Cityshop"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSORTBD_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Sortcode Briko Depot"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSORTBE_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Sortcode E-shop"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSORTBL_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Sortcode Brico Lux."/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSORTBR_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Sortcode Brico"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSORTPL_Article">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Sortcode Plan-it"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSTPROF_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Store type"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSTRCONCT_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Store Concept"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZTNR_DAY">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Transaction Barcode"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZULANG1_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Reporting Language 1"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZULANG2_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Reporting Language 2"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZULANG3_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="Reporting Language 3"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZUMAIL1_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="E-mail adress 1"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZUMAIL2_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="E-mail adress 2"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZUMAIL3_Site">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+<Annotation Term="Common.Label" String="E-mail adress 3"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0CALDAY">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0MATERIAL">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0PLANT">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0SALESORG">
+<Annotation Term="Analytics.Dimension" Bool="true"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0CALDAY_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0CALDAY</String>
+<String>DAY_INT</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0CALDAYâT"/>
+<Annotation Term="Common.Label" String="Day (Number)"/>
+<Annotation Term="Common.TextFor" PropertyPath="_0CALDAY"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0COUNTRY_Sales_Organiza_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0SALESORG</String>
+<String>_1VT_0COUN</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0COUNTRY_Sales_OrganizaâT"/>
+<Annotation Term="Common.Label" String="Country Salesorg Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0COUNTRY_Sales_Organiza"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0COUNTRY_Site_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0PLANT</String>
+<String>_1VT_0COUN</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0COUNTRY_SiteâT"/>
+<Annotation Term="Common.Label" String="Country Plant Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0COUNTRY_Site"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0DISTR_CHAN_Site_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0PLANT</String>
+<String>_1VT_DIST_</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0DISTR_CHAN_SiteâT"/>
+<Annotation Term="Common.Label" String="Distribution channel Plant Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0DISTR_CHAN_Site"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0DIVISION_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_DIVIS</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0DIVISION_ArticleâT"/>
+<Annotation Term="Common.Label" String="Division Material Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0DIVISION_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0DIVISION_Site_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0PLANT</String>
+<String>_1VT_DIVIS</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0DIVISION_SiteâT"/>
+<Annotation Term="Common.Label" String="Division Plant Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0DIVISION_Site"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0MATERIAL_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_MATER_TEXT</String>
+<String>Article_Description</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0MATERIALâT"/>
+<Annotation Term="Common.Label" String="Article Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="_0MATERIAL"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0MATL_CAT_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_MATL_</String>
+<String>TXTLG</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0MATL_CAT_ArticleâT"/>
+<Annotation Term="Common.Label" String="Material category Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0MATL_CAT_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0MATL_GROUP_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_MATL2</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0MATL_GROUP_ArticleâT"/>
+<Annotation Term="Common.Label" String="Material group Material Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0MATL_GROUP_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0MATL_TYPE_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_MATL1</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0MATL_TYPE_ArticleâT"/>
+<Annotation Term="Common.Label" String="Material type Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0MATL_TYPE_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0PLANT_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0PLANT</String>
+<String>_1VT_PLANT</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0PLANTâT"/>
+<Annotation Term="Common.Label" String="Site Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="_0PLANT"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0PROD_HIER_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_PROD_</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0PROD_HIER_ArticleâT"/>
+<Annotation Term="Common.Label" String="Product hier Material Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0PROD_HIER_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0REGION_Site_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0PLANT</String>
+<String>_1VT_0REGI</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0REGION_SiteâT"/>
+<Annotation Term="Common.Label" String="Region Plant Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0REGION_Site"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH1_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VR_0RPA3</String>
+<String>BEZEI</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH1_ArticleâT"/>
+<Annotation Term="Common.Label" String="Subfamily Material Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0RPA_WGH1_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH2_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>Department_Text_Fact</String>
+<String>BEZEI</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH2âT"/>
+<Annotation Term="Common.Label" String="Material hierarchy level (1-4) Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0RPA_WGH2"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH2_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VR_0RPA2</String>
+<String>BEZEI</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH2_ArticleâT"/>
+<Annotation Term="Common.Label" String="Department Material Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0RPA_WGH2_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH3_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_1VR_0RPA_</String>
+<String>BEZEI</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH3âT"/>
+<Annotation Term="Common.Label" String="Material hierarchy level (1-4) Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0RPA_WGH3"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH3_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VR_0RPA1</String>
+<String>BEZEI</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH3_ArticleâT"/>
+<Annotation Term="Common.Label" String="Product Group Material Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0RPA_WGH3_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH4_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_1VR_0RPA1</String>
+<String>BEZEI</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH4âT"/>
+<Annotation Term="Common.Label" String="Material hierarchy level (1-4) Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0RPA_WGH4"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RPA_WGH4_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VR_0RPA_</String>
+<String>BEZEI</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0RPA_WGH4_ArticleâT"/>
+<Annotation Term="Common.Label" String="DIY Material Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0RPA_WGH4_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0RT_PRBAND_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_PRBAN</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0RT_PRBAND_ArticleâT"/>
+<Annotation Term="Common.Label" String="Price band cat Material Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0RT_PRBAND_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0SALESORG_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0SALESORG</String>
+<String>_1VT_SALES</String>
+<String>TXTLG</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0SALESORGâT"/>
+<Annotation Term="Common.Label" String="Salesorg Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="_0SALESORG"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0SALESORG_Site_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0PLANT</String>
+<String>_1VT_SALE1</String>
+<String>TXTLG</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0SALESORG_SiteâT"/>
+<Annotation Term="Common.Label" String="Salesorg Plant Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0SALESORG_Site"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/_0SALES_DIST_Site_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0PLANT</String>
+<String>_1VT_SALES</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="0SALES_DIST_SiteâT"/>
+<Annotation Term="Common.Label" String="Sales district Plant Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="0SALES_DIST_Site"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CALMONTH_Calendar_Day_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0CALDAY</String>
+<String>_MONTH</String>
+<String>_DESCRIPTION</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="CALMONTH_Calendar_DayâT"/>
+<Annotation Term="Common.Label" String="Month Name"/>
+<Annotation Term="Common.TextFor" PropertyPath="CALMONTH_Calendar_Day"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CALQUARTER_Calendar_Day_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0CALDAY</String>
+<String>_QUARTER</String>
+<String>_DESCRIPTION</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="CALQUARTER_Calendar_DayâT"/>
+<Annotation Term="Common.Label" String="Quarter Name"/>
+<Annotation Term="Common.TextFor" PropertyPath="CALQUARTER_Calendar_Day"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/CC_INFOPROVIDER_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_1VT_INFOP</String>
+<String>Description</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="CC_INFOPROVIDERâT"/>
+<Annotation Term="Common.Label" String="Infoprovider Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="CC_INFOPROVIDER"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/C_ACER006_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_C_ACE</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="C_ACER006_ArticleâT"/>
+<Annotation Term="Common.Label" String="Certification Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="C_ACER006_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/C_ASTY012_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_C_AST</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="C_ASTY012_ArticleâT"/>
+<Annotation Term="Common.Label" String="Style/trend group Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="C_ASTY012_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/DAY_OF_WEEK_Calendar_Day_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0CALDAY</String>
+<String>_DAY_OF_WEEK</String>
+<String>_DESCRIPTION</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="DAY_OF_WEEK_Calendar_DayâT"/>
+<Annotation Term="Common.Label" String="Day Name"/>
+<Annotation Term="Common.TextFor" PropertyPath="DAY_OF_WEEK_Calendar_Day"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZARTSTB_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZARTS</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZARTSTB_ArticleâT"/>
+<Annotation Term="Common.Label" String="Article status basic Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZARTSTB_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTBC_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZASSO</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZASSORTBC_ArticleâT"/>
+<Annotation Term="Common.Label" String="Assortment City Shop Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZASSORTBC_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTBD_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZASS1</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZASSORTBD_ArticleâT"/>
+<Annotation Term="Common.Label" String="Briko Depot Assortment Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZASSORTBD_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTBE_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZASS2</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZASSORTBE_ArticleâT"/>
+<Annotation Term="Common.Label" String="E-Shop Material Assortment Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZASSORTBE_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTBL_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZASS3</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZASSORTBL_ArticleâT"/>
+<Annotation Term="Common.Label" String="Briko Luxembourg Assortment Material Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZASSORTBL_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTBR_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZASS4</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZASSORTBR_ArticleâT"/>
+<Annotation Term="Common.Label" String="Brico Assortment Material Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZASSORTBR_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZASSORTPL_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZASS5</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZASSORTPL_ArticleâT"/>
+<Annotation Term="Common.Label" String="Plan-it Assortment Material Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZASSORTPL_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZBKLUS_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZBKLU</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZBKLUS_ArticleâT"/>
+<Annotation Term="Common.Label" String="Assortment praxis Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZBKLUS_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZBRAND_ID_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZBRAN</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZBRAND_ID_ArticleâT"/>
+<Annotation Term="Common.Label" String="Brand Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZBRAND_ID_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZDISTP_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZDIST</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZDISTP_ArticleâT"/>
+<Annotation Term="Common.Label" String="Distribution profile Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZDISTP_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZPDEPT_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZPDEP</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZPDEPT_ArticleâT"/>
+<Annotation Term="Common.Label" String="Praxis Department Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZPDEPT_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZPGROUP_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZPGRO</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZPGROUP_ArticleâT"/>
+<Annotation Term="Common.Label" String="Praxis group Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZPGROUP_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZPPSLARGE_Article_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0MATERIAL</String>
+<String>_1VT_ZPPSL</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZPPSLARGE_ArticleâT"/>
+<Annotation Term="Common.Label" String="PPS large Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZPPSLARGE_Article"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSGRADE_Site_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0PLANT</String>
+<String>_1VT_ZSGRA</String>
+<String>TXTSH</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZSGRADE_SiteâT"/>
+<Annotation Term="Common.Label" String="Store Grade Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZSGRADE_Site"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Type/ZSTPROF_Site_T">
+<Annotation Term="Analytics.navigationAttributeRef">
+<Collection>
+<String>_0PLANT</String>
+<String>_1VT_ZSTPR</String>
+<String>TXTMD</String>
+</Collection>
+</Annotation>
+<Annotation Term="DataIntegration.OriginalName" String="ZSTPROF_SiteâT"/>
+<Annotation Term="Common.Label" String="Store type Description"/>
+<Annotation Term="Common.TextFor" PropertyPath="ZSTPROF_Site"/>
+</Annotations>
+<Annotations Target="InaApplicationService.EntityContainer/_4AM_POS_01">
+<Annotation Term="Capabilities.CountRestrictions">
+<Record Type="Capabilities.CountRestrictionsType">
+<PropertyValue Property="Countable" Bool="false"/>
+</Record>
+</Annotation>
+<Annotation Term="Capabilities.DeleteRestrictions">
+<Record Type="Capabilities.DeleteRestrictionsType">
+<PropertyValue Property="Deletable" Bool="false"/>
+</Record>
+</Annotation>
+<Annotation Term="Capabilities.InsertRestrictions">
+<Record Type="Capabilities.InsertRestrictionsType">
+<PropertyValue Property="Insertable" Bool="false"/>
+</Record>
+</Annotation>
+<Annotation Term="Capabilities.UpdateRestrictions">
+<Record Type="Capabilities.UpdateRestrictionsType">
+<PropertyValue Property="Updatable" Bool="false"/>
+</Record>
+</Annotation>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Parameters/IP_START_DATE">
+<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+</Annotations>
+<Annotations Target="InaApplicationService._4AM_POS_01Parameters/IP_END_DATE">
+<Annotation Term="Common.FieldControl" EnumMember="Common.FieldControlType/Mandatory"/>
+</Annotations>
+</Schema>
+</edmx:DataServices>
+</edmx:Edmx>
