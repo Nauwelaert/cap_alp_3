@@ -1,0 +1,18 @@
+{
+  "welcomeFile": "/index.html",
+  "authenticationMethod": "route",
+  "routes": [
+    {
+      "source": "^/ds/(.*)$",
+      "target": "$1",
+      "authenticationType": "xsuaa",
+      "destination": "datasphere"
+    },
+    {
+      "source": "^/srv/(.*)$",
+      "target": "$1",
+      "authenticationType": "xsuaa",
+      "destination": "POC_ALP_3-srv"
+    }
+]
+}

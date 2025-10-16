@@ -68,7 +68,7 @@
     },
     "requires": {
         "external": {
-          "kind": "odata",
+          "kind": "odata-v4",
           "model": "srv/external/AMPOS01"
     },
     "db": false

@@ -1,7 +1,5 @@
 
 @path: '/pos'
-
-
 service PosService {
 
     @cds.persistence.skip
