@@ -9,9 +9,10 @@ annotate PosService.PosAnalyticsDSP with @(
       'search'      
     ],
     GroupableProperties: [
+      IP_START_DATE,
+      IP_END_DATE,
       _0SALESORG_1,
       _0PLANT_1
-
     ],
     AggregatableProperties: [
       {
@@ -44,21 +45,29 @@ annotate PosService.PosAnalyticsDSP with @(
               '@UI.LineItem'
             ],
     GroupBy: [
+      IP_START_DATE,
+      IP_END_DATE,
       _0SALESORG_1,
       _0PLANT_1
     ]
     },
     SelectionFields: [
+      IP_START_DATE,
+      IP_END_DATE,
       _0SALESORG_1,
       _0PLANT_1
     ],
     Identification: [
     { $Type: 'UI.DataField', Value: _0SALESORG_1 },
-    { $Type: 'UI.DataField', Value: _0PLANT_1 }
+    { $Type: 'UI.DataField', Value: _0PLANT_1 },
+    { $Type: 'UI.DataField', Value: IP_START_DATE },
+    { $Type: 'UI.DataField', Value: IP_END_DATE }
   ],
     LineItem: [
       { $Type : 'UI.DataField', Value : _0SALESORG_1},
       { $Type : 'UI.DataField', Value : _0PLANT_1},
+      { $Type : 'UI.DataField', Value : IP_START_DATE },
+      { $Type : 'UI.DataField', Value : IP_END_DATE },
       { $Type : 'UI.DataField', Value : CK_SALES_QUANTITY },
       { $Type : 'UI.DataField', Value : _0RPA_SAT }
     ]
@@ -71,6 +80,8 @@ annotate PosService.PosAnalyticsDSP with @(
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,
         Dimensions : [
+            IP_START_DATE,
+            IP_END_DATE,
             _0SALESORG_1,
             _0PLANT_1
         ],

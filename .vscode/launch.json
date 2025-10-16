@@ -2,19 +2,20 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "cds serve",
+      "type": "node-terminal",
       "request": "launch",
-      "type": "node",
+      "name": "Start approuter locally",
+      "command": "cds bind --exec -- npm run approuter:local",
       "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "cds",
-      "args": [
-        "serve",
-        "--with-mocks",
-        "--in-memory?"
-      ],
-      "skipFiles": [
-        "<node_internals>/**"
-      ]
+      "env": {
+        "NODE_ENV": "local",
+        "NODE_OPTIONS": "--max-old-space-size=2048"
+      },
+      "presentation": {
+        "hidden": false,
+        "group": "Server",
+        "order": 1
+      }
     }
   ]
 }
