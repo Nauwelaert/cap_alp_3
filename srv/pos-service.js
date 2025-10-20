@@ -40,7 +40,6 @@ srv.before('READ', 'PosAnalyticsDSP', (req) => {
 
     return mappedData;
   });
-};
 
 
 // module.exports = function (srv) {
