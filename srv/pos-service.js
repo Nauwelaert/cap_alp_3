@@ -1,10 +1,7 @@
 const cds = require("@sap/cds");
 const { executeHttpRequest } = require("@sap-cloud-sdk/http-client");
 
-
-module.exports = function (srv) {
-
- srv.before('READ', 'PosAnalyticsDSP', (req) => {
+srv.before('READ', 'PosAnalyticsDSP', (req) => {
       // Load environment variables if VCAP_SERVICES is not set to see if present for local testing 
     if (!process.env.VCAP_SERVICES) {
       xsenv.loadEnv();
