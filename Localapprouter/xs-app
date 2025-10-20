@@ -13,6 +13,12 @@
       "target": "$1",
       "authenticationType": "xsuaa",
       "destination": "POC_ALP_3-srv"
+    },
+    {
+      "source": "^/cp.portal/(.*)$",
+      "target": "$1",
+      "localDir": "./launchpad",
+      "authenticationType": "xsuaa"
     }
 ]
 }
