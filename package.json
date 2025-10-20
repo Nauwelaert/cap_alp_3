@@ -18,7 +18,7 @@
     "express": "^4"
   },
   "devDependencies": {
-    "@sap/cds-dk": "^9.2.1",
+    "@sap/cds-dk": "^9.4.1",
     "@sap/ux-specification": "^1.128.0",
     "@types/express": "^5.0.3",
     "@ui5/cli": "^4.0.30",
@@ -27,7 +27,7 @@
     "typescript": "~5.2.2"
   },
   "scripts": {
-    "start": "cds run",
+    "start": "cds watch --profile hybrid",
     "watch-alp-v4": "cds watch --open alp-v4/webapp/index.html?sap-ui-xx-viewCache=false",
     "dev": "cds watch",
     "build": "cds build",
@@ -68,12 +68,13 @@
       "odata_new_parser": true
     },
     "requires": {
-      "external": {
+      "datasphere": {
         "kind": "odata-v4",
-        "model": "srv/external/AMPOS01",
+        "crsf": true, 
         "credentials": {
           "destination": "datasphere",
-          "forwardAuthToken": true
+          "forwardAuthToken": true,
+          "path": "/datasphere/consumption/analytical"
         }
       },
       "db": false

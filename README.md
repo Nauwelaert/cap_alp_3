@@ -29,3 +29,6 @@ From the root folder:
     - cds bind -2 datareports-poc-destination-service
   - Bind XSUAA service:
     - cds bind -2 datareports-xsuaa-service
+
+
+    cds import .\srv\external\AMPOS.edmx --as cds

@@ -1,5 +1,5 @@
 {
-  "welcomeFile": "/index.html",
+  "welcomeFile": "/cp.portal/index.html",
   "authenticationMethod": "route",
   "routes": [
     {
@@ -12,13 +12,23 @@
       "source": "^/srv/(.*)$",
       "target": "$1",
       "authenticationType": "xsuaa",
-      "destination": "POC_ALP_3-srv"
+      "destination": "srv_api"
     },
+
     {
       "source": "^/cp.portal/(.*)$",
       "target": "$1",
       "localDir": "./launchpad",
-      "authenticationType": "xsuaa"
+      "authenticationType": "xsuaa",
+       "csrfProtection": false
+    },
+    
+{
+      "source": "^/app/(.*)$",
+      "target": "$1",
+      "authenticationType": "xsuaa",
+      "destination": "srv_api"
     }
+
 ]
 }
