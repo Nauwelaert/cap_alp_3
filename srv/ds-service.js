@@ -35,7 +35,6 @@ module.exports = class DSService extends cds.ApplicationService {
             //'Accept-Language': 'nl'
           }
         }
- 
       
       );
       // 
@@ -58,6 +57,34 @@ module.exports = class DSService extends cds.ApplicationService {
         _0RPA_TAM: item._0RPA_TAM,
         _0RPA_TAT: item._0RPA_TAT,
         ZRPA_NDA: item.ZRPA_NDA,
+
+        // Other Dimension Fields
+        _0MATERIAL_1: item._0MATERIAL_1,
+        _0MATERIAL_T: item._0MATERIAL_T,
+        _0BASE_UOM: item._0BASE_UOM,
+        _0CALDAY_1: item._0CALDAY_1,
+        _0CALMONTH: item._0CALMONTH,
+        _0CALQUARTER: item._0CALQUARTER,
+        _0CALWEEK: item._0CALWEEK,
+        _0CALYEAR: item._0CALYEAR,
+        _0FISCPER: item._0FISCPER,
+        _0FISCPER3: item._0FISCPER3,
+        _0FISCVARNT: item._0FISCVARNT,
+        _0FISCYEAR: item._0FISCYEAR,
+        _0RT_SALHOUR: item._0RT_SALHOUR,
+        ZSALTIME: item.ZSALTIME,
+        _0CURRENCY: item._0CURRENCY,
+        _0DOC_CURRCY: item._0DOC_CURRCY,
+        _0LOC_CURRCY: item._0LOC_CURRCY,
+        _0RPA_TIX: item._0RPA_TIX,
+        _0RPA_TNR: item._0RPA_TNR,
+        _0RPA_WID: item._0RPA_WID,
+        ZTNR_DAY: item.ZTNR_DAY,
+        _0RPA_WGH1: item._0RPA_WGH1,
+        _0RPA_WGH2: item._0RPA_WGH2,
+        _0RPA_WGH3: item._0RPA_WGH3,
+        _0RPA_WGH4: item._0RPA_WGH4,
+        CC_INFOPROVIDER: item.CC_INFOPROVIDER,
         
         // Article Fields
         _0BASE_UOM_Article: item._0BASE_UOM_Article,
@@ -181,33 +208,7 @@ module.exports = class DSService extends cds.ApplicationService {
         MONTH_Calendar_Day: item.MONTH_Calendar_Day,
         QUARTER_Calendar_Day: item.QUARTER_Calendar_Day,
         YEAR_Calendar_Day: item.YEAR_Calendar_Day,
-        
-        // Other Dimension Fields
-        _0MATERIAL_1: item._0MATERIAL_1,
-        _0BASE_UOM: item._0BASE_UOM,
-        _0CALDAY_1: item._0CALDAY_1,
-        _0CALMONTH: item._0CALMONTH,
-        _0CALQUARTER: item._0CALQUARTER,
-        _0CALWEEK: item._0CALWEEK,
-        _0CALYEAR: item._0CALYEAR,
-        _0FISCPER: item._0FISCPER,
-        _0FISCPER3: item._0FISCPER3,
-        _0FISCVARNT: item._0FISCVARNT,
-        _0FISCYEAR: item._0FISCYEAR,
-        _0RT_SALHOUR: item._0RT_SALHOUR,
-        ZSALTIME: item.ZSALTIME,
-        _0CURRENCY: item._0CURRENCY,
-        _0DOC_CURRCY: item._0DOC_CURRCY,
-        _0LOC_CURRCY: item._0LOC_CURRCY,
-        _0RPA_TIX: item._0RPA_TIX,
-        _0RPA_TNR: item._0RPA_TNR,
-        _0RPA_WID: item._0RPA_WID,
-        ZTNR_DAY: item.ZTNR_DAY,
-        _0RPA_WGH1: item._0RPA_WGH1,
-        _0RPA_WGH2: item._0RPA_WGH2,
-        _0RPA_WGH3: item._0RPA_WGH3,
-        _0RPA_WGH4: item._0RPA_WGH4,
-        CC_INFOPROVIDER: item.CC_INFOPROVIDER
+            
         
       }));
 

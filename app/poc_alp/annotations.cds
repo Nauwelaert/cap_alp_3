@@ -1,0 +1,1 @@
+using DSService as service from '../../srv/ds-service';

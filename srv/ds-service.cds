@@ -15,6 +15,7 @@ service DSService {
         _0SALESORG_1: String(4);
         _0PLANT_1: String(4);
         _0MATERIAL_1: String(40);
+        _0MATERIAL_T: String(40);
         _0BASE_UOM: String(3);
         _0CALDAY_1: Date;
         _0CALMONTH: String(6);
