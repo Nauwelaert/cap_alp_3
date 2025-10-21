@@ -32,3 +32,5 @@ From the root folder:
 
 
     cds import .\srv\external\AMPOS.edmx --as cds
+
+    cf oauth-token

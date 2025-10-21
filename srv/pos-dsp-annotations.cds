@@ -1,7 +1,7 @@
 using { DSService } from './ds-service';
 
 // 1. Aggregation and analytical annotations
-annotate DSService.test with @(
+annotate DSService.PosAnalyticsDSP with @(
   Aggregation.ApplySupported: {
     Transformations: [
       'aggregate',
@@ -34,7 +34,7 @@ annotate DSService.test with @(
 
 
 // 3. presentation an UI settings Selection Fields and Line Item and presentation variant
-annotate PosService.test with @(
+annotate PosService.PosAnalyticsDSP with @(
   UI: {
     PresentationVariant: {
             Total: [
@@ -75,7 +75,7 @@ annotate PosService.test with @(
 );
 
 // annotate chart
-annotate PosService.test with @(
+annotate PosService.PosAnalyticsDSP with @(
     UI.Chart #alpChart : {
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,

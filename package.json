@@ -6,16 +6,18 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
-    "@sap-cloud-sdk/connectivity": "^3",
-    "@sap-cloud-sdk/http-client": "^3.26.4",
-    "@sap-cloud-sdk/resilience": "^3",
+    "@sap-cloud-sdk/connectivity": "^4",
+    "@sap-cloud-sdk/core": "^1.54.2",
+    "@sap-cloud-sdk/http-client": "^4",
+    "@sap-cloud-sdk/resilience": "^4",
     "@sap/approuter": "^20.8.2",
     "@sap/cds": "^9.3.1",
     "@sap/ux-ui5-tooling": "^1.19.0",
     "@sap/xsenv": "^5.4.0",
     "@sap/xssec": "^4.2.7",
     "@ui5/cli": "^4.0.30",
-    "express": "^4"
+    "express": "^4",
+    "passport": "^0.7.0"
   },
   "devDependencies": {
     "@sap/cds-dk": "^9.4.1",
@@ -24,7 +26,8 @@
     "@ui5/cli": "^4.0.30",
     "copyfiles": "2.4.1",
     "npm-run-all": "^4.1.5",
-    "typescript": "~5.2.2"
+    "typescript": "~5.2.2",
+    "@types/xml2js": "^0.4.14"
   },
   "scripts": {
     "start": "cds watch --profile hybrid",
@@ -36,7 +39,8 @@
     "mta:build": "mbt build",
     "deploy": "cf deploy mta_archives/cap-alp.mtar",
     "approuter:local": "npm run local --prefix ./localapprouter",
-    "srv:local": "npm run dev --prefix ./srv"
+    "srv:local": "npm run dev --prefix ./srv",
+    "start:approuterdev": "cds bind --exec -- npm run start --prefix Localapprouter --profile hybrid"
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -70,11 +74,11 @@
     "requires": {
       "datasphere": {
         "kind": "odata-v4",
-        "crsf": true, 
+        "crsf": true,
         "credentials": {
           "destination": "datasphere",
           "forwardAuthToken": true,
-          "path": "/datasphere/consumption/analytical"
+          "path": "datasphere/consumption/analytical"
         }
       },
       "db": false

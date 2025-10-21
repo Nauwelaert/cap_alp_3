@@ -5,7 +5,7 @@
 		"node": "^16.0.0 || ^18.0.0"
 	},
 	"dependencies": {
-		"@sap/approuter": "16.7.2",
+		"@sap/approuter": "17.1.0",
 		"dotenv": "^16.4.5"
 	},
 	"devDependencies": {

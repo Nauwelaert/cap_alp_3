@@ -5,7 +5,7 @@
       "type": "node-terminal",
       "request": "launch",
       "name": "Start approuter locally",
-      "command": "cds bind --exec -- npm run approuter:local",
+      "command": "cds bind --exec -- npm run start:dev --prefix app/router --profile hybrid",
       "cwd": "${workspaceFolder}",
       "env": {
         "NODE_ENV": "local",

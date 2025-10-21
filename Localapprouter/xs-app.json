@@ -1,7 +1,13 @@
 {
-  "welcomeFile": "/cp.portal/index.html",
   "authenticationMethod": "route",
   "routes": [
+    {
+      "source": "^/base/(.*)$",
+      "target": "/base/$1",
+      "authenticationType": "xsuaa",
+      "destination": "srv-api",
+      "csrfProtection": false
+    },
     {
       "source": "^/ds/(.*)$",
       "target": "$1",
@@ -9,26 +15,11 @@
       "destination": "datasphere"
     },
     {
-      "source": "^/srv/(.*)$",
+      "source": "^/(.*)$",
       "target": "$1",
+      "destination": "srv-api",
       "authenticationType": "xsuaa",
-      "destination": "srv_api"
-    },
-
-    {
-      "source": "^/cp.portal/(.*)$",
-      "target": "$1",
-      "localDir": "./launchpad",
-      "authenticationType": "xsuaa",
-       "csrfProtection": false
-    },
-    
-{
-      "source": "^/app/(.*)$",
-      "target": "$1",
-      "authenticationType": "xsuaa",
-      "destination": "srv_api"
+      "csrfProtection": false
     }
-
-]
+  ]
 }
