@@ -88,11 +88,5 @@
     "folders": {
       "db": "false"
     }
-  },
-  "workspaces": [
-    "app/*"
-  ],
-  "sapux": [
-    "app/poc_alp"
-  ]
+  }
 }
