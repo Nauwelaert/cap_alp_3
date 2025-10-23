@@ -23,6 +23,12 @@ module.exports = class DSService extends cds.ApplicationService {
       // Extract JWT from incoming request
       const jwt = retrieveJwt(req);
       // console.log("JWT retrieved:", jwt ? "Yes" : "No");
+      // console.log("Request parameters:", req.params);
+      // console.log("Request query options:", req.query);
+      // console.log("Request headers:", req.headers);
+      // console.log("Request full path:", req.path);
+      // console.log("Request method:", req.method);
+      // console.log("Request full: ", req);
 
       // parameters uitlezen
       const { IP_START_DATE = '2024-12-14', IP_END_DATE = '2024-12-14' } = req.params ?? {};
@@ -214,6 +220,10 @@ module.exports = class DSService extends cds.ApplicationService {
 
       return mappedResults;
       
+    });
+
+    this.after("READ", "PosAnalyticsDSP", (req) => {
+      console.log("Request full: ", req.params);
     });
   }
 }

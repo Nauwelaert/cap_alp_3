@@ -34,7 +34,7 @@ annotate DSService.PosAnalyticsDSP with @(
 
 
 // 3. presentation an UI settings Selection Fields and Line Item and presentation variant
-annotate PosService.PosAnalyticsDSP with @(
+annotate DSService.PosAnalyticsDSP with @(
   UI: {
     PresentationVariant: {
             Total: [
@@ -75,7 +75,7 @@ annotate PosService.PosAnalyticsDSP with @(
 );
 
 // annotate chart
-annotate PosService.PosAnalyticsDSP with @(
+annotate DSService.PosAnalyticsDSP with @(
     UI.Chart #alpChart : {
         $Type : 'UI.ChartDefinitionType',
         ChartType : #Bar,
