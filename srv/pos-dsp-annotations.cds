@@ -37,19 +37,20 @@ annotate DSService.PosAnalyticsDSP with @(
 annotate DSService.PosAnalyticsDSP with @(
   UI: {
     PresentationVariant: {
-            Total: [
-              CK_SALES_QUANTITY,
-              _0RPA_SAT
-            ],
-    Visualizations: [
-              '@UI.LineItem'
-            ],
-    GroupBy: [
-      IP_START_DATE,
-      IP_END_DATE,
-      _0SALESORG_1,
-      _0PLANT_1
-    ]
+      Total: [
+        CK_SALES_QUANTITY,
+        _0RPA_SAT
+      ],
+      Visualizations: [
+        '@UI.LineItem',
+        '@UI.Chart#alpChart'
+      ],
+      GroupBy: [
+        IP_START_DATE,
+        IP_END_DATE,
+        _0SALESORG_1,
+        _0PLANT_1
+      ]
     },
     SelectionFields: [
       IP_START_DATE,
@@ -58,11 +59,11 @@ annotate DSService.PosAnalyticsDSP with @(
       _0PLANT_1
     ],
     Identification: [
-    { $Type: 'UI.DataField', Value: _0SALESORG_1 },
-    { $Type: 'UI.DataField', Value: _0PLANT_1 },
-    { $Type: 'UI.DataField', Value: IP_START_DATE },
-    { $Type: 'UI.DataField', Value: IP_END_DATE }
-  ],
+      { $Type: 'UI.DataField', Value: _0SALESORG_1 },
+      { $Type: 'UI.DataField', Value: _0PLANT_1 },
+      { $Type: 'UI.DataField', Value: IP_START_DATE },
+      { $Type: 'UI.DataField', Value: IP_END_DATE }
+    ],
     LineItem: [
       { $Type : 'UI.DataField', Value : _0SALESORG_1},
       { $Type : 'UI.DataField', Value : _0PLANT_1},
@@ -70,26 +71,22 @@ annotate DSService.PosAnalyticsDSP with @(
       { $Type : 'UI.DataField', Value : IP_END_DATE },
       { $Type : 'UI.DataField', Value : CK_SALES_QUANTITY },
       { $Type : 'UI.DataField', Value : _0RPA_SAT }
-    ]
-  }
-);
-
-// annotate chart
-annotate DSService.PosAnalyticsDSP with @(
-    UI.Chart #alpChart : {
-        $Type : 'UI.ChartDefinitionType',
-        ChartType : #Bar,
-        Dimensions : [
-            IP_START_DATE,
-            IP_END_DATE,
-            _0SALESORG_1,
-            _0PLANT_1
-        ],
-        Measures : [
-            CK_SALES_QUANTITY,
-            _0RPA_SAT
-        ],
+    ],
+    Chart #alpChart : {
+      $Type : 'UI.ChartDefinitionType',
+      ChartType : #Bar,
+      Dimensions : [
+        IP_START_DATE,
+        IP_END_DATE,
+        _0SALESORG_1,
+        _0PLANT_1
+      ],
+      Measures : [
+        CK_SALES_QUANTITY,
+        _0RPA_SAT
+      ],
     }
+  }
 );
 
 
