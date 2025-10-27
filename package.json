@@ -44,8 +44,6 @@
     "start:approuterdev": "cds bind --exec -- npm run start --prefix Localapprouter --profile hybrid",
     "watch-pos_alp": "cds watch --open posalp/index.html?sap-ui-xx-viewCache=false --livereload false",
     "start:ui": "npm run start-local --prefix ./app/pos_alp"
-    
-
   },
   "eslintConfig": {
     "extends": "eslint:recommended",
@@ -83,7 +81,8 @@
         "credentials": {
           "destination": "datasphere",
           "forwardAuthToken": true,
-          "path": "datasphere/consumption/analytical"
+          "path": "datasphere/consumption/analytical",
+          "requestTimeout": 270000
         }
       },
       "db": false
