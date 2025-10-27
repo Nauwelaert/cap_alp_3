@@ -39,7 +39,6 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
               if (valueObj && valueObj.val && valueObj.val.trim() !== '') {
                 startDate = valueObj.val;
                 foundAtThisLevel = true;
-                console.log('Found IP_START_DATE in WHERE:', startDate);
               }
             }
             
@@ -48,7 +47,6 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
               if (valueObj && valueObj.val && valueObj.val.trim() !== '') {
                 endDate = valueObj.val;
                 foundAtThisLevel = true;
-                console.log('Found IP_END_DATE in WHERE:', endDate);
               }
             }
           }
@@ -82,11 +80,9 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
     }
     
     depth++;
-    console.log(`Searched at depth ${depth}, found dates: ${foundAtThisLevel}`);
     
     // Stop if queue is empty (no more nested structures)
     if (queue.length === 0) {
-      console.log(`Reached maximum depth: ${depth}`);
       break;
     }
   }
@@ -94,11 +90,9 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
   // Apply defaults if still empty or null
   if (!startDate || startDate.trim() === '') {
     startDate = DEFAULT_START_DATE;
-    console.log(`Using default start date: ${startDate}`);
   }
   if (!endDate || endDate.trim() === '') {
     endDate = DEFAULT_END_DATE;
-    console.log(`Using default end date: ${endDate}`);
   }
 
   return { startDate, endDate };
@@ -138,6 +132,50 @@ function aggregateData(data, groupByFields, aggregateFields) {
   return Object.values(groups);
 }
 
+// Helper function to extract aggregation info from any level of the query
+function findAggregationInfo(query) {
+  let groupByFields = [];
+  let aggregateFields = [];
+  
+  // Recursive function to search through nested SELECTs
+  function searchQuery(obj) {
+    if (!obj || typeof obj !== 'object') return;
+    
+    // Check current level for groupBy
+    if (obj.groupBy && Array.isArray(obj.groupBy)) {
+      groupByFields = obj.groupBy.map(g => g.ref[0]);
+    }
+    
+    // Check current level for columns with aggregate functions
+    if (obj.columns && Array.isArray(obj.columns)) {
+      obj.columns.forEach(col => {
+        if (col.func && (col.func === 'sum' || col.func === 'avg' || col.func === 'count')) {
+          if (col.args && col.args[0] && col.args[0].ref) {
+            const fieldName = col.args[0].ref[0];
+            if (!aggregateFields.includes(fieldName)) {
+              aggregateFields.push(fieldName);
+            }
+          }
+        }
+      });
+    }
+    
+    // Recurse into nested SELECT
+    if (obj.from && obj.from.SELECT) {
+      searchQuery(obj.from.SELECT);
+    }
+    
+    // Recurse into direct SELECT
+    if (obj.SELECT) {
+      searchQuery(obj.SELECT);
+    }
+  }
+  
+  searchQuery(query);
+  
+  return { groupByFields, aggregateFields };
+}
+
 module.exports = class DSService extends cds.ApplicationService {
   constructor() {
     super(...arguments);
@@ -165,8 +203,6 @@ module.exports = class DSService extends cds.ApplicationService {
       this.lastStartDate = startDate;
       this.lastEndDate = endDate;
 
-      console.log(`Using dates - Start: ${startDate}, End: ${endDate}`);
-
       const cacheKey = `${startDate}|${endDate}`;
       
       // Fetch raw data (cache it to avoid repeated calls)
@@ -179,12 +215,6 @@ module.exports = class DSService extends cds.ApplicationService {
             headers: {}
           }
         );
-
-        console.log(`Retrieved ${results.length} records from Datasphere`);
-        
-        if (results.length > 0) {
-          console.log('Sample raw record from Datasphere:', JSON.stringify(results[0], null, 2));
-        }
 
         // Map to internal structure
         const mappedResults = results.map(item => ({
@@ -240,33 +270,32 @@ module.exports = class DSService extends cds.ApplicationService {
       
       let data = this.rawDataCache.get(cacheKey);
       
-      // Check if aggregation is needed
-      const hasGroupBy = req.query.SELECT && req.query.SELECT.groupBy;
+      // Find aggregation info from anywhere in the nested query structure
+      const { groupByFields, aggregateFields } = findAggregationInfo(req.query);
       
-      if (hasGroupBy) {
+      console.log('GroupBy fields found:', groupByFields);
+      console.log('Aggregate fields found:', aggregateFields);
+      
+      if (aggregateFields.length > 0) {
         console.log('Aggregation required - performing manual aggregation');
         
-        // Extract groupBy field names
-        const groupByFields = req.query.SELECT.groupBy.map(g => g.ref[0]);
-        console.log('GroupBy fields:', groupByFields);
-        
-        // Define which fields to aggregate (measures)
-        const aggregateFields = [
-          'CK_SALES_QUANTITY',
-          '_0RPA_SAT',
-          '_0RPA_CNR',
-          '_0RPA_NSA',
-          '_0RPA_TAM',
-          '_0RPA_TAT',
-          'ZRPA_NDA'
-        ];
-        
-        // Perform aggregation
-        data = aggregateData(data, groupByFields, aggregateFields);
-        
-        console.log(`Aggregated from ${this.rawDataCache.get(cacheKey).length} to ${data.length} records`);
-        if (data.length > 0) {
-          console.log('Sample aggregated record:', JSON.stringify(data[0], null, 2));
+        // If no groupBy fields, aggregate everything into a single total
+        if (groupByFields.length === 0) {
+          console.log('No groupBy - creating grand total');
+          const totals = {
+            ID: cds.utils.uuid()
+          };
+          
+          aggregateFields.forEach(field => {
+            totals[field] = data.reduce((sum, item) => sum + (parseFloat(item[field]) || 0), 0);
+          });
+          
+          data = [totals];
+          console.log('Grand total:', JSON.stringify(totals, null, 2));
+        } else {
+          // Perform groupBy aggregation
+          data = aggregateData(data, groupByFields, aggregateFields);
+          console.log(`Aggregated from ${this.rawDataCache.get(cacheKey).length} to ${data.length} records`);
         }
       }
       
