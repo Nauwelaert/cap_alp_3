@@ -6,9 +6,6 @@ const cds = require("@sap/cds");
 
 /**
  * Extract date parameters from deeply nested query structure
- * Uses iterative depth-first search to handle arbitrary nesting
- * Required as fiori sends multiple requests with nested select and thus also where statements at different levels
- * different function for data param as required. 
  */
 function extractDateParams(query, previousStartDate = null, previousEndDate = null) {
   const DEFAULT_START_DATE = '2024-10-14';
@@ -24,14 +21,11 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
     
     if (!obj || typeof obj !== 'object') continue;
 
-    // Check WHERE clause at current level
     if (Array.isArray(obj.where)) {
       for (let i = 0; i < obj.where.length; i++) {
         const condition = obj.where[i];
         
-        // Look for IP_START_DATE
         if (condition?.ref?.[0] === 'IP_START_DATE') {
-          // Value should be 2 positions ahead (after '=' operator)
           if (i + 2 < obj.where.length && obj.where[i + 2]?.val) {
             const val = obj.where[i + 2].val.trim();
             if (val) {
@@ -41,9 +35,7 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
           }
         }
         
-        // Look for IP_END_DATE
         if (condition?.ref?.[0] === 'IP_END_DATE') {
-          // Value should be 2 positions ahead (after '=' operator)
           if (i + 2 < obj.where.length && obj.where[i + 2]?.val) {
             const val = obj.where[i + 2].val.trim();
             if (val) {
@@ -55,20 +47,11 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
       }
     }
 
-    // Add nested structures to queue - MUST process all levels
-    if (obj.SELECT) {
-      queue.push(obj.SELECT);
-    }
-    
+    if (obj.SELECT) queue.push(obj.SELECT);
     if (obj.from) {
-      if (obj.from.SELECT) {
-        queue.push(obj.from.SELECT);
-      }
-      if (obj.from.ref) {
-        queue.push(obj.from);
-      }
+      if (obj.from.SELECT) queue.push(obj.from.SELECT);
+      if (obj.from.ref) queue.push(obj.from);
     }
-    
     if (Array.isArray(obj.columns)) {
       obj.columns.forEach(col => {
         if (col.SELECT) queue.push(col.SELECT);
@@ -76,21 +59,16 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
     }
   }
 
-  // Use defaults only if still not found
   const finalStartDate = startDate?.trim() || DEFAULT_START_DATE;
   const finalEndDate = endDate?.trim() || DEFAULT_END_DATE;
   
   console.log(`Final dates - Start: ${finalStartDate}, End: ${finalEndDate}`);
 
-  return {
-    startDate: finalStartDate,
-    endDate: finalEndDate
-  };
+  return { startDate: finalStartDate, endDate: finalEndDate };
 }
 
 /**
  * Extract WHERE filters from query (excluding date parameters)
- * Returns an object with field-value pairs for filtering
  */
 function extractWhereFilters(query) {
   const filters = {};
@@ -101,17 +79,14 @@ function extractWhereFilters(query) {
     
     if (!obj || typeof obj !== 'object') continue;
 
-    // Check WHERE clause at current level
     if (Array.isArray(obj.where)) {
       for (let i = 0; i < obj.where.length; i++) {
         const condition = obj.where[i];
         
-        // Skip date parameters (handled separately)
         if (condition?.ref?.[0] === 'IP_START_DATE' || condition?.ref?.[0] === 'IP_END_DATE') {
           continue;
         }
         
-        // Look for field = value patterns
         if (condition?.ref?.[0] && i + 2 < obj.where.length && obj.where[i + 1] === '=' && obj.where[i + 2]?.val) {
           const field = condition.ref[0];
           const value = obj.where[i + 2].val;
@@ -121,7 +96,6 @@ function extractWhereFilters(query) {
       }
     }
 
-    // Add nested structures to queue
     if (obj.SELECT) queue.push(obj.SELECT);
     if (obj.from) {
       if (obj.from.SELECT) queue.push(obj.from.SELECT);
@@ -134,7 +108,6 @@ function extractWhereFilters(query) {
 
 /**
  * Analyze query to determine aggregation requirements
- * Returns groupBy fields, aggregate fields, and query type flags
  */
 function analyzeAggregation(query) {
   const aggregateFields = new Set();
@@ -146,13 +119,11 @@ function analyzeAggregation(query) {
   function search(obj) {
     if (!obj || typeof obj !== 'object') return;
 
-    // Find groupBy
     if (Array.isArray(obj.groupBy)) {
       originalGroupByFields = obj.groupBy.map(g => g.ref[0]);
       groupByFields = [...originalGroupByFields];
     }
 
-    // Find aggregate functions
     if (Array.isArray(obj.columns)) {
       obj.columns.forEach(col => {
         if (col.func === 'count') {
@@ -165,24 +136,16 @@ function analyzeAggregation(query) {
       });
     }
 
-    // Recurse
     if (obj.SELECT) search(obj.SELECT);
     if (obj.from?.SELECT) search(obj.from.SELECT);
   }
 
   search(query);
 
-  // Filter out ID from groupBy
   groupByFields = groupByFields.filter(f => f !== 'ID');
 
   const includesIdInGroupBy = originalGroupByFields.includes('ID');
-  
-  // A query is count-only if it ONLY has count and no other aggregate functions
   const isCountOnlyQuery = hasCountOnly && !hasAggregateFunction;
-  
-  // Determine if this is detail-level or aggregation:
-  // - Detail level: ID is in groupBy (user wants to see individual records)
-  // - Aggregation level: ID is NOT in groupBy (user wants aggregated totals)
   const hasDimensionFields = groupByFields.length > 0;
   const isDetailLevel = includesIdInGroupBy;
   const needsAggregation = hasAggregateFunction && !isDetailLevel;
@@ -200,26 +163,57 @@ function analyzeAggregation(query) {
 }
 
 /**
- * Perform manual aggregation on data
- * Groups by specified fields and sums measures
- * Keeps all dimension fields, setting non-grouped ones to null for proper hierarchy
+ * Map raw Datasphere data to internal structure - USING RANDOM UUID
+ */
+function mapDatasphereRecord(item, entityName, startDate, endDate) {
+  const mapping = ENTITY_FIELD_MAPPINGS[entityName];
+  
+  if (!mapping) {
+    throw new Error(`No field mapping defined for entity: ${entityName}`);
+  }
+
+  // Use truly random UUID
+  const record = {
+    ID: cds.utils.uuid()
+  };
+
+  mapping.dateFields.forEach(field => {
+    if (field === 'IP_START_DATE') {
+      record[field] = startDate;
+    } else if (field === 'IP_END_DATE') {
+      record[field] = endDate;
+    } else {
+      record[field] = item[field];
+    }
+  });
+
+  mapping.measures.forEach(field => {
+    record[field] = parseFloat(item[field]) || 0;
+  });
+
+  mapping.dimensions.forEach(field => {
+    record[field] = item[field];
+  });
+
+  return record;
+}
+
+/**
+ * Perform manual aggregation on data - USING RANDOM UUID
  */
 function aggregateData(data, groupByFields, aggregateFields, entityName) {
   const groups = {};
-  
-  // Get all dimension fields from entity mapping
   const allDimensionFields = ENTITY_FIELD_MAPPINGS[entityName]?.dimensions || [];
   
   data.forEach(item => {
-    const key = groupByFields.map(f => item[f] || '').join('|');
+    const keyParts = groupByFields.map(f => String(item[f] || 'null'));
+    const key = keyParts.join('|');
     
     if (!groups[key]) {
       groups[key] = {
-        ID: cds.utils.uuid()
+        ID: cds.utils.uuid() // Random UUID for aggregated records
       };
       
-      // Add ALL dimension fields
-      // Fields in groupBy get their values, others get null
       allDimensionFields.forEach(field => {
         if (groupByFields.includes(field)) {
           groups[key][field] = item[field];
@@ -228,13 +222,11 @@ function aggregateData(data, groupByFields, aggregateFields, entityName) {
         }
       });
       
-      // Initialize aggregate fields to 0
       aggregateFields.forEach(field => {
         groups[key][field] = 0;
       });
     }
     
-    // Sum the aggregate fields
     aggregateFields.forEach(f => {
       groups[key][f] += parseFloat(item[f]) || 0;
     });
@@ -243,12 +235,6 @@ function aggregateData(data, groupByFields, aggregateFields, entityName) {
   return Object.values(groups);
 }
 
-/**
- * Define static field mapping for entity
- * This should be entity-specific and define all fields, required for aggregation
- * if new entity is required this is where to add it.
- * Then implement the logic in the CAP service handler. 
- */
 const ENTITY_FIELD_MAPPINGS = {
   PosAnalyticsDSP: {
     dateFields: ['IP_START_DATE', 'IP_END_DATE', '_0CALDAY_1'],
@@ -293,53 +279,10 @@ const ENTITY_FIELD_MAPPINGS = {
   }
 };
 
-/**
- * Map raw Datasphere data to internal structure
- * Always maps ALL fields to ensure aggregation works at any level
- */
-function mapDatasphereRecord(item, entityName, startDate, endDate) {
-  const mapping = ENTITY_FIELD_MAPPINGS[entityName];
-  
-  if (!mapping) {
-    throw new Error(`No field mapping defined for entity: ${entityName}`);
-  }
-
-  const record = {
-    ID: cds.utils.uuid()
-  };
-
-  // Map date fields
-  mapping.dateFields.forEach(field => {
-    if (field === 'IP_START_DATE') {
-      record[field] = startDate;
-    } else if (field === 'IP_END_DATE') {
-      record[field] = endDate;
-    } else {
-      record[field] = item[field];
-    }
-  });
-
-  // Map measures (ensure numeric)
-  mapping.measures.forEach(field => {
-    record[field] = parseFloat(item[field]) || 0;
-  });
-
-  // Map dimensions
-  mapping.dimensions.forEach(field => {
-    record[field] = item[field];
-  });
-
-  return record;
-}
-
-/**
- * Build OData filter string for Datasphere API
- */
 function buildODataFilter(filters) {
   if (Object.keys(filters).length === 0) return '';
   
   const filterParts = Object.entries(filters).map(([field, value]) => {
-    // Handle string values with quotes
     if (typeof value === 'string') {
       return `${field} eq '${value}'`;
     }
@@ -366,7 +309,6 @@ module.exports = class DSService extends cds.ApplicationService {
     this.on("READ", "PosAnalyticsDSP", async (req) => {
       console.log("\n=== DSService - PosAnalyticsDSP Request ===");
 
-      // 📅 Extract date parameters
       const { startDate, endDate } = extractDateParams(
         req.query, 
         this.lastStartDate, 
@@ -377,17 +319,13 @@ module.exports = class DSService extends cds.ApplicationService {
       this.lastEndDate = endDate;
       console.log(`Date range: ${startDate} to ${endDate}`);
 
-      // 🔍 Extract filters
       const filters = extractWhereFilters(req.query);
+      const filterString = buildODataFilter(filters);
       
-      // 📦 Fetch data from Datasphere (NO CACHING)
       console.log('⬇️  Fetching data from Datasphere...');
       
-      // Build OData URL with filters
       let apiUrl = `POS/4AM_POS_01/_4AM_POS_01(IP_START_DATE=${startDate},IP_END_DATE=${endDate})/Set`;
       
-      // Add $filter query parameter if filters exist
-      const filterString = buildODataFilter(filters);
       if (filterString) {
         apiUrl += `?$filter=${encodeURIComponent(filterString)}`;
         console.log(`🔍 Applying filter to Datasphere: ${filterString}`);
@@ -395,59 +333,43 @@ module.exports = class DSService extends cds.ApplicationService {
       
       console.log(`📡 API URL: ${apiUrl}`);
 
-      const results = await datasphere.send(
-        "GET",
-        apiUrl,
-        { headers: {} }
-      );
+      const results = await datasphere.send("GET", apiUrl, { headers: {} });
 
       console.log(`✅ Retrieved ${results.length} records from Datasphere`);
 
-      // Map ALL fields (not just query fields) to support any aggregation level
       let data = results.map(item => 
         mapDatasphereRecord(item, 'PosAnalyticsDSP', startDate, endDate)
       );
 
-      // 📊 Analyze query for aggregation needs
       const {
         groupByFields,
         aggregateFields,
         isCountOnlyQuery,
-        includesIdInGroupBy,
         needsAggregation,
-        hasAggregateFunction,
-        hasDimensionFields,
         isDetailLevel
       } = analyzeAggregation(req.query);
 
       console.log('📊 Aggregation analysis:', {
         needsAggregation,
         isCountOnlyQuery,
-        includesIdInGroupBy,
-        hasAggregateFunction,
-        hasDimensionFields,
         isDetailLevel,
         groupByFields,
         aggregateFields
       });
 
-      // 🔄 Perform aggregation or return detail data
       if (isDetailLevel) {
-        console.log('📄 Detail-level query detected (ID in groupBy) - returning raw records');
-        // Return all raw records as-is for detail view
+        console.log('📄 Detail-level query - returning raw records');
       } else if (needsAggregation && !isCountOnlyQuery) {
         if (groupByFields.length === 0) {
-          console.log('📈 Creating grand total (no groupBy)');
+          console.log('📈 Creating grand total');
           
           const totals = { ID: cds.utils.uuid() };
           
-          // Set all dimensions to null for grand total
           const allDimensionFields = ENTITY_FIELD_MAPPINGS.PosAnalyticsDSP.dimensions;
           allDimensionFields.forEach(field => {
             totals[field] = null;
           });
           
-          // Sum all aggregate fields
           aggregateFields.forEach(field => {
             totals[field] = data.reduce((sum, item) => 
               sum + (parseFloat(item[field]) || 0), 0
@@ -455,7 +377,6 @@ module.exports = class DSService extends cds.ApplicationService {
           });
           
           data = [totals];
-          console.log('Grand total:', totals);
         } else {
           console.log(`📊 Aggregating by: [${groupByFields.join(', ')}]`);
           
@@ -463,14 +384,7 @@ module.exports = class DSService extends cds.ApplicationService {
           data = aggregateData(data, groupByFields, aggregateFields, 'PosAnalyticsDSP');
           
           console.log(`✅ Aggregated ${beforeCount} → ${data.length} records`);
-          if (data.length > 0) {
-            console.log('Sample:', JSON.stringify(data[0], null, 2));
-          }
         }
-      } else if (isCountOnlyQuery) {
-        console.log('🔢 Count-only query - returning data as-is for counting');
-      } else {
-        console.log('📄 No aggregation - returning raw records');
       }
 
       console.log(`✅ Returning ${data.length} records\n`);
