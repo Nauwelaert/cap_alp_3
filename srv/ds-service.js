@@ -36,12 +36,12 @@ module.exports = class DSService extends cds.ApplicationService {
 
       const results = await datasphere.send(
         "GET", `POS/4AM_POS_01/_4AM_POS_01(IP_START_DATE=${IP_START_DATE},IP_END_DATE=${IP_END_DATE})/Set`,
-      {
+        {
           headers: {
             //'Accept-Language': 'nl'
-          }
+          },
+          params: req.query
         }
-      
       );
       // 
 

@@ -42,11 +42,10 @@ annotate DSService.PosAnalyticsDSP with @(
               _0RPA_SAT
             ],
     Visualizations: [
-              '@UI.LineItem'
+              '@UI.LineItem',
+              'UI.Chart#alpChart'
             ],
     GroupBy: [
-      IP_START_DATE,
-      IP_END_DATE,
       _0SALESORG_1,
       _0PLANT_1
     ]
