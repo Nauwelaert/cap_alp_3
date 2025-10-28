@@ -90,7 +90,7 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
 
 /**
  * Extract WHERE filters from query (excluding date parameters)
- * Returns an object with field-value pairs for caching and filtering
+ * Returns an object with field-value pairs for filtering
  */
 function extractWhereFilters(query) {
   const filters = {};
@@ -130,20 +130,6 @@ function extractWhereFilters(query) {
   }
 
   return filters;
-}
-
-/**
- * Apply WHERE filters to data
- * Filters data based on extracted field-value pairs
- */
-function applyFilters(data, filters) {
-  if (Object.keys(filters).length === 0) return data;
-  
-  return data.filter(item => {
-    return Object.entries(filters).every(([field, value]) => {
-      return item[field] === value;
-    });
-  });
 }
 
 /**
@@ -346,6 +332,23 @@ function mapDatasphereRecord(item, entityName, startDate, endDate) {
   return record;
 }
 
+/**
+ * Build OData filter string for Datasphere API
+ */
+function buildODataFilter(filters) {
+  if (Object.keys(filters).length === 0) return '';
+  
+  const filterParts = Object.entries(filters).map(([field, value]) => {
+    // Handle string values with quotes
+    if (typeof value === 'string') {
+      return `${field} eq '${value}'`;
+    }
+    return `${field} eq ${value}`;
+  });
+  
+  return filterParts.join(' and ');
+}
+
 // ============================================================================
 // 🚀 CAP SERVICE IMPLEMENTATION
 // ============================================================================
@@ -355,7 +358,6 @@ module.exports = class DSService extends cds.ApplicationService {
     super(...arguments);
     this.lastStartDate = null;
     this.lastEndDate = null;
-    this.rawDataCache = new Map();
   }
 
   async init() {
@@ -375,43 +377,36 @@ module.exports = class DSService extends cds.ApplicationService {
       this.lastEndDate = endDate;
       console.log(`Date range: ${startDate} to ${endDate}`);
 
-      const cacheKey = `${startDate}|${endDate}`;
-
-      // 📦 Fetch and cache raw data from Datasphere
-      if (!this.rawDataCache.has(cacheKey)) {
-        console.log('⬇️  Fetching data from Datasphere...');
-        console.log(JSON.stringify(req.query, null, 2));
-
-        const results = await datasphere.send(
-          "GET",
-          `POS/4AM_POS_01/_4AM_POS_01(IP_START_DATE=${startDate},IP_END_DATE=${endDate})/Set`,
-          { headers: {} },
-          { params: req.query }
-        );
-
-        console.log(`✅ Retrieved ${results.length} records from Datasphere`);
-
-        // Map ALL fields (not just query fields) to support any aggregation level
-        const mappedResults = results.map(item => 
-          mapDatasphereRecord(item, 'PosAnalyticsDSP', startDate, endDate)
-        );
-
-        this.rawDataCache.set(cacheKey, mappedResults);
-        console.log(`💾 Cached ${mappedResults.length} records`);
-      } else {
-        console.log('✅ Using cached data');
-      }
-
-      let data = [...this.rawDataCache.get(cacheKey)];
-
-      // 🔍 Extract and apply WHERE filters (excluding dates)
+      // 🔍 Extract filters
       const filters = extractWhereFilters(req.query);
-      if (Object.keys(filters).length > 0) {
-        const beforeFilter = data.length;
-        data = applyFilters(data, filters);
-        console.log(`🔍 Applied filters: ${JSON.stringify(filters)}`);
-        console.log(`   Filtered ${beforeFilter} → ${data.length} records`);
+      
+      // 📦 Fetch data from Datasphere (NO CACHING)
+      console.log('⬇️  Fetching data from Datasphere...');
+      
+      // Build OData URL with filters
+      let apiUrl = `POS/4AM_POS_01/_4AM_POS_01(IP_START_DATE=${startDate},IP_END_DATE=${endDate})/Set`;
+      
+      // Add $filter query parameter if filters exist
+      const filterString = buildODataFilter(filters);
+      if (filterString) {
+        apiUrl += `?$filter=${encodeURIComponent(filterString)}`;
+        console.log(`🔍 Applying filter to Datasphere: ${filterString}`);
       }
+      
+      console.log(`📡 API URL: ${apiUrl}`);
+
+      const results = await datasphere.send(
+        "GET",
+        apiUrl,
+        { headers: {} }
+      );
+
+      console.log(`✅ Retrieved ${results.length} records from Datasphere`);
+
+      // Map ALL fields (not just query fields) to support any aggregation level
+      let data = results.map(item => 
+        mapDatasphereRecord(item, 'PosAnalyticsDSP', startDate, endDate)
+      );
 
       // 📊 Analyze query for aggregation needs
       const {
