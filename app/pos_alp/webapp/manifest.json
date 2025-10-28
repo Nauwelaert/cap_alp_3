@@ -116,6 +116,11 @@
                     "type": "AnalyticalTable",
                     "selectionMode": "Auto"
                   }
+                },
+                "@com.sap.vocabularies.UI.v1.Chart#alpChart": {
+                  "chartSettings": {
+                    "visible": true
+                  }
                 }
               },
               "views": {
@@ -123,12 +128,12 @@
                   {
                     "primary": [
                       {
-                        "annotationPath": "com.sap.vocabularies.UI.v1.PresentationVariant"
+                        "annotationPath": "@com.sap.vocabularies.UI.v1.Chart#alpChart"
                       }
                     ],
                     "secondary": [
                       {
-                        "annotationPath": "com.sap.vocabularies.UI.v1.LineItem"
+                        "annotationPath": "@com.sap.vocabularies.UI.v1.LineItem"
                       }
                     ],
                     "defaultPath": "both"

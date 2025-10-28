@@ -89,6 +89,64 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
 }
 
 /**
+ * Extract WHERE filters from query (excluding date parameters)
+ * Returns an object with field-value pairs for caching and filtering
+ */
+function extractWhereFilters(query) {
+  const filters = {};
+  const queue = [query];
+  
+  while (queue.length > 0) {
+    const obj = queue.shift();
+    
+    if (!obj || typeof obj !== 'object') continue;
+
+    // Check WHERE clause at current level
+    if (Array.isArray(obj.where)) {
+      for (let i = 0; i < obj.where.length; i++) {
+        const condition = obj.where[i];
+        
+        // Skip date parameters (handled separately)
+        if (condition?.ref?.[0] === 'IP_START_DATE' || condition?.ref?.[0] === 'IP_END_DATE') {
+          continue;
+        }
+        
+        // Look for field = value patterns
+        if (condition?.ref?.[0] && i + 2 < obj.where.length && obj.where[i + 1] === '=' && obj.where[i + 2]?.val) {
+          const field = condition.ref[0];
+          const value = obj.where[i + 2].val;
+          filters[field] = value;
+          console.log(`Found filter: ${field} = ${value}`);
+        }
+      }
+    }
+
+    // Add nested structures to queue
+    if (obj.SELECT) queue.push(obj.SELECT);
+    if (obj.from) {
+      if (obj.from.SELECT) queue.push(obj.from.SELECT);
+      if (obj.from.ref) queue.push(obj.from);
+    }
+  }
+
+  return filters;
+}
+
+/**
+ * Apply WHERE filters to data
+ * Filters data based on extracted field-value pairs
+ */
+function applyFilters(data, filters) {
+  if (Object.keys(filters).length === 0) return data;
+  
+  return data.filter(item => {
+    return Object.entries(filters).every(([field, value]) => {
+      return item[field] === value;
+    });
+  });
+}
+
+/**
  * Analyze query to determine aggregation requirements
  * Returns groupBy fields, aggregate fields, and query type flags
  */
@@ -322,11 +380,13 @@ module.exports = class DSService extends cds.ApplicationService {
       // 📦 Fetch and cache raw data from Datasphere
       if (!this.rawDataCache.has(cacheKey)) {
         console.log('⬇️  Fetching data from Datasphere...');
-        
+        console.log(JSON.stringify(req.query, null, 2));
+
         const results = await datasphere.send(
           "GET",
           `POS/4AM_POS_01/_4AM_POS_01(IP_START_DATE=${startDate},IP_END_DATE=${endDate})/Set`,
-          { headers: {} }
+          { headers: {} },
+          { params: req.query }
         );
 
         console.log(`✅ Retrieved ${results.length} records from Datasphere`);
@@ -343,6 +403,15 @@ module.exports = class DSService extends cds.ApplicationService {
       }
 
       let data = [...this.rawDataCache.get(cacheKey)];
+
+      // 🔍 Extract and apply WHERE filters (excluding dates)
+      const filters = extractWhereFilters(req.query);
+      if (Object.keys(filters).length > 0) {
+        const beforeFilter = data.length;
+        data = applyFilters(data, filters);
+        console.log(`🔍 Applied filters: ${JSON.stringify(filters)}`);
+        console.log(`   Filtered ${beforeFilter} → ${data.length} records`);
+      }
 
       // 📊 Analyze query for aggregation needs
       const {
