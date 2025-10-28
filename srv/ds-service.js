@@ -1,34 +1,16 @@
 const cds = require("@sap/cds");
 const { retrieveJwt } = require("@sap-cloud-sdk/core");
 
+
 module.exports = class DSService extends cds.ApplicationService {
   async init() {
     const { connect } = cds;
     const datasphere = await cds.connect.to('datasphere');
 
-    // Add middleware to check authentication
-    // this.before('*', (req) => {
-    //   console.log("=== Authentication Debug ===");
-    //   console.log("Auth headers:", req.headers.authorization ? "Present" : "Missing");
-    //   console.log("User:", req.user ? req.user.id : "Anonymous");
-    //   console.log("All headers:", JSON.stringify(req.headers, null, 2));
-    //   console.log("Request path:", req.path);
-    //   console.log("===========================");
-    // });
-
     this.on("READ", "PosAnalyticsDSP", async(req) => {
 
       console.log("DSService - PosAnalyticsDSP request received");
 
-      // Extract JWT from incoming request
-      const jwt = retrieveJwt(req);
-      // console.log("JWT retrieved:", jwt ? "Yes" : "No");
-      // console.log("Request parameters:", req.params);
-      // console.log("Request query options:", req.query);
-      // console.log("Request headers:", req.headers);
-      // console.log("Request full path:", req.path);
-      // console.log("Request method:", req.method);
-      // console.log("Request full: ", req);
 
       // parameters uitlezen
       const { IP_START_DATE = '2024-12-14', IP_END_DATE = '2024-12-14' } = req.params ?? {};
@@ -44,6 +26,7 @@ module.exports = class DSService extends cds.ApplicationService {
         }
       );
       // 
+      
 
       console.log("Handling PosAnalyticsDSP request");
      

@@ -116,6 +116,12 @@
                     "type": "AnalyticalTable",
                     "selectionMode": "Auto"
                   }
+                },
+                "@com.sap.vocabularies.UI.v1.Chart#alpChart": {
+                  "chartSettings": {
+                    "visible": true
+                  }
+    
                 }
               },
               "views": {
