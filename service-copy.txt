@@ -29,45 +29,21 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
       for (let i = 0; i < obj.where.length; i++) {
         const condition = obj.where[i];
         
-        // Look for IP_START_DATE
-        if (condition?.ref?.[0] === 'IP_START_DATE') {
-          // Value should be 2 positions ahead (after '=' operator)
-          if (i + 2 < obj.where.length && obj.where[i + 2]?.val) {
-            const val = obj.where[i + 2].val.trim();
-            if (val) {
-              startDate = val;
-              console.log(`Found IP_START_DATE: ${startDate}`);
-            }
-          }
+        if (condition?.ref?.[0] === 'IP_START_DATE' && obj.where[i + 2]?.val) {
+          const val = obj.where[i + 2].val.trim();
+          if (val) startDate = val;
         }
         
-        // Look for IP_END_DATE
-        if (condition?.ref?.[0] === 'IP_END_DATE') {
-          // Value should be 2 positions ahead (after '=' operator)
-          if (i + 2 < obj.where.length && obj.where[i + 2]?.val) {
-            const val = obj.where[i + 2].val.trim();
-            if (val) {
-              endDate = val;
-              console.log(`Found IP_END_DATE: ${endDate}`);
-            }
-          }
+        if (condition?.ref?.[0] === 'IP_END_DATE' && obj.where[i + 2]?.val) {
+          const val = obj.where[i + 2].val.trim();
+          if (val) endDate = val;
         }
       }
     }
 
-    // Add nested structures to queue - MUST process all levels
-    if (obj.SELECT) {
-      queue.push(obj.SELECT);
-    }
-    
-    if (obj.from) {
-      if (obj.from.SELECT) {
-        queue.push(obj.from.SELECT);
-      }
-      if (obj.from.ref) {
-        queue.push(obj.from);
-      }
-    }
+    // Add nested structures to queue
+    if (obj.SELECT) queue.push(obj.SELECT);
+    if (obj.from?.SELECT) queue.push(obj.from.SELECT);
     
     if (Array.isArray(obj.columns)) {
       obj.columns.forEach(col => {
@@ -76,15 +52,80 @@ function extractDateParams(query, previousStartDate = null, previousEndDate = nu
     }
   }
 
-  // Use defaults only if still not found
-  const finalStartDate = startDate?.trim() || DEFAULT_START_DATE;
-  const finalEndDate = endDate?.trim() || DEFAULT_END_DATE;
-  
-  console.log(`Final dates - Start: ${finalStartDate}, End: ${finalEndDate}`);
+  return {
+    startDate: startDate?.trim() || DEFAULT_START_DATE,
+    endDate: endDate?.trim() || DEFAULT_END_DATE
+  };
+}
+
+/**
+ * Extract all referenced fields from nested query structure
+ * Returns dimensions, measures, and other fields found
+ * this to aid in mapping and aggregation. by reading it from the query structure it can be reused for different entities.
+ */
+function extractFieldsFromQuery(query) {
+  const allFields = new Set();
+  const measureFields = new Set();
+  const dimensionFields = new Set();
+
+  function traverse(obj) {
+    if (!obj || typeof obj !== 'object') return;
+
+    // Extract from columns
+    if (Array.isArray(obj.columns)) {
+      obj.columns.forEach(col => {
+        // Direct field reference
+        if (col.ref) {
+          const field = col.ref[0];
+          allFields.add(field);
+          dimensionFields.add(field);
+        }
+        
+        // Aggregate function argument
+        if (col.func && ['sum', 'avg', 'count'].includes(col.func)) {
+          if (col.args?.[0]?.ref) {
+            const field = col.args[0].ref[0];
+            allFields.add(field);
+            measureFields.add(field);
+          }
+        }
+      });
+    }
+
+    // Extract from groupBy
+    if (Array.isArray(obj.groupBy)) {
+      obj.groupBy.forEach(g => {
+        if (g.ref) {
+          const field = g.ref[0];
+          allFields.add(field);
+          dimensionFields.add(field);
+        }
+      });
+    }
+
+    // Extract from where
+    if (Array.isArray(obj.where)) {
+      obj.where.forEach(w => {
+        if (w?.ref) allFields.add(w.ref[0]);
+      });
+    }
+
+    // Recurse into nested structures
+    if (obj.SELECT) traverse(obj.SELECT);
+    if (obj.from?.SELECT) traverse(obj.from.SELECT);
+    if (Array.isArray(obj.columns)) {
+      obj.columns.forEach(col => {
+        if (col.SELECT) traverse(col.SELECT);
+      });
+    }
+  }
+
+  traverse(query);
 
   return {
-    startDate: finalStartDate,
-    endDate: finalEndDate
+    allFields: Array.from(allFields).filter(f => f !== 'ID'),
+    measureFields: Array.from(measureFields),
+    dimensionFields: Array.from(dimensionFields).filter(f => f !== 'ID')
   };
 }
 
@@ -97,7 +138,6 @@ function analyzeAggregation(query) {
   let groupByFields = [];
   let originalGroupByFields = [];
   let hasCountOnly = false;
-  let hasAggregateFunction = false;
 
   function search(obj) {
     if (!obj || typeof obj !== 'object') return;
@@ -114,7 +154,6 @@ function analyzeAggregation(query) {
         if (col.func === 'count') {
           hasCountOnly = true;
         } else if (['sum', 'avg'].includes(col.func)) {
-          hasAggregateFunction = true;
           const field = col.args?.[0]?.ref?.[0];
           if (field) aggregateFields.add(field);
         }
@@ -128,69 +167,40 @@ function analyzeAggregation(query) {
 
   search(query);
 
-  // Filter out ID from groupBy
+  // Filter out ID from groupBy, else always treated as detail
   groupByFields = groupByFields.filter(f => f !== 'ID');
 
   const includesIdInGroupBy = originalGroupByFields.includes('ID');
-  
-  // A query is count-only if it ONLY has count and no other aggregate functions
-  const isCountOnlyQuery = hasCountOnly && !hasAggregateFunction;
-  
-  // Determine if this is detail-level or aggregation:
-  // - Detail level: ID is in groupBy (user wants to see individual records)
-  // - Aggregation level: ID is NOT in groupBy (user wants aggregated totals)
-  const hasDimensionFields = groupByFields.length > 0;
-  const isDetailLevel = includesIdInGroupBy;
-  const needsAggregation = hasAggregateFunction && !isDetailLevel;
+  const isCountOnlyQuery = hasCountOnly && aggregateFields.size === 0;
+  const needsAggregation = aggregateFields.size > 0;
 
   return {
     groupByFields,
     aggregateFields: Array.from(aggregateFields),
     isCountOnlyQuery,
     includesIdInGroupBy,
-    needsAggregation,
-    hasAggregateFunction,
-    hasDimensionFields,
-    isDetailLevel
+    needsAggregation
   };
 }
 
 /**
  * Perform manual aggregation on data
  * Groups by specified fields and sums measures
- * Keeps all dimension fields, setting non-grouped ones to null for proper hierarchy
  */
-function aggregateData(data, groupByFields, aggregateFields, entityName) {
+function aggregateData(data, groupByFields, aggregateFields) {
   const groups = {};
-  
-  // Get all dimension fields from entity mapping
-  const allDimensionFields = ENTITY_FIELD_MAPPINGS[entityName]?.dimensions || [];
   
   data.forEach(item => {
     const key = groupByFields.map(f => item[f] || '').join('|');
     
     if (!groups[key]) {
       groups[key] = {
-        ID: cds.utils.uuid()
+        ID: cds.utils.uuid(),
+        ...Object.fromEntries(groupByFields.map(f => [f, item[f]])),
+        ...Object.fromEntries(aggregateFields.map(f => [f, 0]))
       };
-      
-      // Add ALL dimension fields
-      // Fields in groupBy get their values, others get null
-      allDimensionFields.forEach(field => {
-        if (groupByFields.includes(field)) {
-          groups[key][field] = item[field];
-        } else {
-          groups[key][field] = null;
-        }
-      });
-      
-      // Initialize aggregate fields to 0
-      aggregateFields.forEach(field => {
-        groups[key][field] = 0;
-      });
     }
     
-    // Sum the aggregate fields
     aggregateFields.forEach(f => {
       groups[key][f] += parseFloat(item[f]) || 0;
     });
@@ -305,6 +315,7 @@ module.exports = class DSService extends cds.ApplicationService {
 
     this.on("READ", "PosAnalyticsDSP", async (req) => {
       console.log("\n=== DSService - PosAnalyticsDSP Request ===");
+      console.log('Query:', JSON.stringify(req.query, null, 2));
 
       // 📅 Extract date parameters
       const { startDate, endDate } = extractDateParams(
@@ -350,40 +361,23 @@ module.exports = class DSService extends cds.ApplicationService {
         aggregateFields,
         isCountOnlyQuery,
         includesIdInGroupBy,
-        needsAggregation,
-        hasAggregateFunction,
-        hasDimensionFields,
-        isDetailLevel
+        needsAggregation
       } = analyzeAggregation(req.query);
 
       console.log('📊 Aggregation analysis:', {
         needsAggregation,
         isCountOnlyQuery,
         includesIdInGroupBy,
-        hasAggregateFunction,
-        hasDimensionFields,
-        isDetailLevel,
         groupByFields,
         aggregateFields
       });
 
-      // 🔄 Perform aggregation or return detail data
-      if (isDetailLevel) {
-        console.log('📄 Detail-level query detected (ID in groupBy) - returning raw records');
-        // Return all raw records as-is for detail view
-      } else if (needsAggregation && !isCountOnlyQuery) {
+      // 🔄 Perform aggregation if needed
+      if (needsAggregation && !isCountOnlyQuery) {
         if (groupByFields.length === 0) {
           console.log('📈 Creating grand total (no groupBy)');
           
           const totals = { ID: cds.utils.uuid() };
-          
-          // Set all dimensions to null for grand total
-          const allDimensionFields = ENTITY_FIELD_MAPPINGS.PosAnalyticsDSP.dimensions;
-          allDimensionFields.forEach(field => {
-            totals[field] = null;
-          });
-          
-          // Sum all aggregate fields
           aggregateFields.forEach(field => {
             totals[field] = data.reduce((sum, item) => 
               sum + (parseFloat(item[field]) || 0), 0
@@ -396,17 +390,17 @@ module.exports = class DSService extends cds.ApplicationService {
           console.log(`📊 Aggregating by: [${groupByFields.join(', ')}]`);
           
           const beforeCount = data.length;
-          data = aggregateData(data, groupByFields, aggregateFields, 'PosAnalyticsDSP');
+          data = aggregateData(data, groupByFields, aggregateFields);
           
           console.log(`✅ Aggregated ${beforeCount} → ${data.length} records`);
           if (data.length > 0) {
-            console.log('Sample:', JSON.stringify(data[0], null, 2));
+            console.log('Sample:', data[0]);
           }
         }
       } else if (isCountOnlyQuery) {
-        console.log('🔢 Count-only query - returning data as-is for counting');
+        console.log('🔢 Count-only query - returning data as-is');
       } else {
-        console.log('📄 No aggregation - returning raw records');
+        console.log('📄 Returning raw detail records');
       }
 
       console.log(`✅ Returning ${data.length} records\n`);

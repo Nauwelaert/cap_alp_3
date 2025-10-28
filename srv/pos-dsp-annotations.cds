@@ -48,10 +48,6 @@ annotate DSService.PosAnalyticsDSP with @(
       Visualizations: [
         '@UI.LineItem',
         '@UI.Chart#alpChart'
-      ],
-      GroupBy: [
-        _0SALESORG_1,
-        _0PLANT_1
       ]
     },
     SelectionFields: [

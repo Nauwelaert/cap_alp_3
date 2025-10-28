@@ -34,3 +34,8 @@ From the root folder:
     cds import .\srv\external\AMPOS.edmx --as cds
 
     cf oauth-token
+
+    to add a new entity to service : To add another entity, simply:
+
+  Add entry to ENTITY_FIELD_MAPPINGS
+  Add another this.on("READ", "NewEntity", ...) handler using the same logic
