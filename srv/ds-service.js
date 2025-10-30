@@ -8,72 +8,50 @@ const cds = require("@sap/cds");
  * Extract date parameters from deeply nested query structure
  * Uses iterative depth-first search to handle arbitrary nesting
  */
-function extractDateParams(query, previousStartDate = null, previousEndDate = null) {
-  const DEFAULT_START_DATE = '2024-10-14';
-  const DEFAULT_END_DATE = '2024-10-14';
-  
-  let startDate = previousStartDate;
-  let endDate = previousEndDate;
+function extractDateParams(query, req) {
+  let startDate, endDate;
 
-  const queue = [query];
-  
-  while (queue.length > 0) {
-    const obj = queue.shift();
-    
-    if (!obj || typeof obj !== 'object') continue;
-
-    // Check WHERE clause at current level
-    if (Array.isArray(obj.where)) {
-      for (let i = 0; i < obj.where.length; i++) {
-        const condition = obj.where[i];
-        
-        // Look for IP_START_DATE
-        if (condition?.ref?.[0] === 'IP_START_DATE') {
-          if (i + 2 < obj.where.length && obj.where[i + 2]?.val) {
-            const val = obj.where[i + 2].val.trim();
-            if (val) {
-              startDate = val;
-              console.log(`Found IP_START_DATE: ${startDate}`);
-            }
-          }
-        }
-        
-        // Look for IP_END_DATE
-        if (condition?.ref?.[0] === 'IP_END_DATE') {
-          if (i + 2 < obj.where.length && obj.where[i + 2]?.val) {
-            const val = obj.where[i + 2].val.trim();
-            if (val) {
-              endDate = val;
-              console.log(`Found IP_END_DATE: ${endDate}`);
-            }
-          }
-        }
+  // 1. Direct CQN WHERE (from $filter or $apply filter)
+  const scanWhere = (whereArr) => {
+    if (!Array.isArray(whereArr)) return;
+    for (let i = 0; i < whereArr.length; i++) {
+      const token = whereArr[i];
+      if (token?.ref?.[0] === 'IP_START_DATE' && whereArr[i + 1] === '=' && whereArr[i + 2]?.val) {
+        startDate = whereArr[i + 2].val;
+      }
+      if (token?.ref?.[0] === 'IP_END_DATE' && whereArr[i + 1] === '=' && whereArr[i + 2]?.val) {
+        endDate = whereArr[i + 2].val;
       }
     }
+  };
 
-    // Add nested structures to queue
-    if (obj.SELECT) queue.push(obj.SELECT);
-    if (obj.from) {
-      if (obj.from.SELECT) queue.push(obj.from.SELECT);
-      if (obj.from.ref) queue.push(obj.from);
-    }
-    if (Array.isArray(obj.columns)) {
-      obj.columns.forEach(col => {
-        if (col.SELECT) queue.push(col.SELECT);
-      });
+  // BFS through query object to find any where arrays
+  const queue = [query];
+  while (queue.length) {
+    const obj = queue.shift();
+    if (!obj || typeof obj !== 'object') continue;
+    if (Array.isArray(obj.where)) scanWhere(obj.where);
+    for (const k in obj) {
+      const v = obj[k];
+      if (v && typeof v === 'object') queue.push(v);
     }
   }
 
-  // Use defaults only if still not found
-  const finalStartDate = startDate?.trim() || DEFAULT_START_DATE;
-  const finalEndDate = endDate?.trim() || DEFAULT_END_DATE;
-  
-  console.log(`Final dates - Start: ${finalStartDate}, End: ${finalEndDate}`);
+  // 2. Fallback: raw $apply string (if CAP didn’t translate dates yet)
+  if ((!startDate || !endDate) && req?._?.req?.query?.$apply) {
+    const applyStr = req._.req.query.$apply;
+    const m = applyStr.match(/IP_START_DATE\s+eq\s+(\d{4}-\d{2}-\d{2}).*IP_END_DATE\s+eq\s+(\d{4}-\d{2}-\d{2})/);
+    if (m) {
+      startDate = startDate || m[1];
+      endDate = endDate || m[2];
+    }
+  }
 
-  return {
-    startDate: finalStartDate,
-    endDate: finalEndDate
-  };
+  // 3. Fallback: plain query parameters (?IP_START_DATE=...&IP_END_DATE=...)
+  if (!startDate && req?._?.req?.query?.IP_START_DATE) startDate = req._.req.query.IP_START_DATE;
+  if (!endDate && req?._?.req?.query?.IP_END_DATE) endDate = req._.req.query.IP_END_DATE;
+
+  return { startDate, endDate };
 }
 
 /**
@@ -144,30 +122,27 @@ module.exports = class DSService extends cds.ApplicationService {
     // ✅ BEFORE handler: Fetch and populate data BEFORE CAP processes query
     this.before("READ", "PosAnalyticsDSP", async (req) => {
       console.log("\n=== DSService - BEFORE READ (Data Population) ===");
+      const { startDate, endDate } = extractDateParams(req.query, req);
 
-      const { startDate, endDate } = extractDateParams(
-        req.query, 
-        this.lastStartDate, 
-        this.lastEndDate
-      );
-      
-      this.lastStartDate = startDate;
-      this.lastEndDate = endDate;
+      if (!startDate || !endDate) {
+        req.error(400, 'IP_START_DATE and IP_END_DATE must be provided');
+        return;
+      }
 
-      const cacheKey = `${startDate}_${endDate}`;
+      const rangeKey = `${startDate}_${endDate}`;
 
       // Clear cache after 5 minutes
-      if (this.dataCache.has(cacheKey)) {
-        const cacheTime = this.dataCache.get(cacheKey);
+      if (this.dataCache.has(rangeKey)) {
+        const cacheTime = this.dataCache.get(rangeKey);
         if (Date.now() - cacheTime > 300000) { // 5 minutes
-          this.dataCache.delete(cacheKey);
+          this.dataCache.delete(rangeKey);
         } else {
-          console.log(`✅ Using cached data for ${cacheKey}`);
+          console.log(`✅ Using cached data for ${rangeKey}`);
           return; // Let CAP handle the query against cached data
         }
       }
 
-      console.log(`📡 Fetching fresh data for: ${cacheKey}`);
+      console.log(`📡 Fetching fresh data for: ${rangeKey}`);
 
       const apiUrl = `POS/4AM_POS_01/_4AM_POS_01(IP_START_DATE=${startDate},IP_END_DATE=${endDate})/Set`;
       const results = await datasphere.send("GET", apiUrl, { headers: {} });
@@ -185,7 +160,7 @@ module.exports = class DSService extends cds.ApplicationService {
       await INSERT.into('DSService.PosAnalyticsDSP').entries(mappedData);
 
       // Store timestamp instead of boolean
-      this.dataCache.set(cacheKey, Date.now());
+      this.dataCache.set(rangeKey, Date.now());
       console.log(`💾 Inserted ${mappedData.length} records into CAP database`);
     });
 

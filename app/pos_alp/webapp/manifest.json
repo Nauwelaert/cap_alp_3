@@ -103,6 +103,7 @@
             "settings": {
               "contextPath": "/PosAnalyticsDSP",
               "variantManagement": "Page",
+              "autoBindOnInit": false,
               "navigation": {
                 "PosAnalyticsDSP": {
                   "detail": {
@@ -114,14 +115,14 @@
                 "@com.sap.vocabularies.UI.v1.LineItem": {
                   "tableSettings": {
                     "type": "AnalyticalTable",
-                    "selectionMode": "Auto"
+                    "selectionMode": "Auto",
+                    "enableExport": true
                   }
                 },
                 "@com.sap.vocabularies.UI.v1.Chart#alpChart": {
                   "chartSettings": {
                     "visible": true
                   }
-    
                 }
               },
               "views": {
@@ -140,7 +141,8 @@
                     "defaultPath": "both"
                   }
                 ]
-              }
+              },
+              "initialLoad": "Auto"
             }
           }
         },
