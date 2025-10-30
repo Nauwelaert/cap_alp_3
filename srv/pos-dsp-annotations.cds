@@ -14,54 +14,36 @@ annotate DSService.PosAnalyticsDSP with @(
       'expand',
       'search'      
     ],
-    Rollup: #None,
-    PropertyRestrictions: true,
     GroupableProperties: [
       _0SALESORG_1,
       _0PLANT_1
     ],
     AggregatableProperties: [
       {
-        Property: CK_SALES_QUANTITY,
-        SupportedAggregationMethods: ['sum']
+        $Type : 'Aggregation.AggregatablePropertyType',
+        Property: CK_SALES_QUANTITY
       },
       {
-        Property: _0RPA_SAT,
-        SupportedAggregationMethods: ['sum']
+        $Type : 'Aggregation.AggregatablePropertyType',
+        Property: _0RPA_SAT
       }
     ]
   },
-  Analytics.AggregatedProperties: [
-    {
-      Name: 'TotalSalesQuantity',
-      AggregationMethod: 'sum',
-      AggregatableProperty: CK_SALES_QUANTITY,
-      ![@Common.Label]: 'Total Sales Quantity'
-    },
-    {
-      Name: 'TotalSalesAmount',
-      AggregationMethod: 'sum',
-      AggregatableProperty: _0RPA_SAT,
-      ![@Common.Label]: 'Total Sales Amount'
-    }
-  ]
+  Aggregation.CustomAggregate #CK_SALES_QUANTITY: 'Edm.Double',
+  Aggregation.CustomAggregate #_0RPA_SAT: 'Edm.Decimal'
 ){
-  _0SALESORG_1 @Analytics.Dimension;
-  _0PLANT_1 @Analytics.Dimension;
   CK_SALES_QUANTITY @Analytics.Measure @Aggregation.default: #SUM;
   _0RPA_SAT @Analytics.Measure @Aggregation.default: #SUM;
 };
 
-// 2. Presentation and UI settings
+
+// 2. Presentation and UI settings - Table and Chart only
 annotate DSService.PosAnalyticsDSP with @(
   UI: {
     PresentationVariant: {
-      SortOrder: [
-        {Property: _0SALESORG_1, Descending: false}
-      ],
       Total: [
-        TotalSalesQuantity,
-        TotalSalesAmount
+        CK_SALES_QUANTITY,
+        _0RPA_SAT
       ],
       Visualizations: [
         '@UI.LineItem',
@@ -95,3 +77,6 @@ annotate DSService.PosAnalyticsDSP with @(
     }
   }
 );
+
+
+

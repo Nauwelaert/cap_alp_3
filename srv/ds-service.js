@@ -163,6 +163,8 @@ module.exports = class DSService extends cds.ApplicationService {
       const results = await datasphere.send("GET", apiUrl, { headers: {}, params: req.query });
 
       console.log(`✅ Retrieved ${results.length} records from Datasphere`);
+      // Parse out the JSON result
+      console.log("query:", JSON.stringify(req.query, null, 2));
 
       // Map results
       const data = results.map(item => 
@@ -170,6 +172,8 @@ module.exports = class DSService extends cds.ApplicationService {
       );
 
       console.log(`✅ Returning ${data.length} records\n`);
+      console.log("\n=== DSService - PosAnalyticsDSP Request ===");
+      console.log("📊 Apply clause:", JSON.stringify(req.query.SELECT?.groupBy || req.query.SELECT?.having, null, 2));
       return data;
     });
 
