@@ -3,7 +3,7 @@
 @path: '/base'
 service DSService {
 
-    @cds.persistence.skip
+    @cds.persistence.table  // ← Change from .skip to .table
     entity PosAnalyticsDSP  {
         key ID: UUID;
         

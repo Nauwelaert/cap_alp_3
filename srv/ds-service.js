@@ -129,23 +129,22 @@ function mapDatasphereRecord(item, startDate, endDate) {
 }
 
 // ============================================================================
-// 🚀 CAP SERVICE IMPLEMENTATION
+// 🚀 HYBRID CAP SERVICE IMPLEMENTATION
 // ============================================================================
 
 module.exports = class DSService extends cds.ApplicationService {
   constructor() {
     super(...arguments);
-    this.lastStartDate = null;
-    this.lastEndDate = null;
+    this.dataCache = new Map(); // Cache by date range
   }
 
   async init() {
     const datasphere = await cds.connect.to('datasphere');
 
-    this.on("READ", "PosAnalyticsDSP", async (req) => {
-      console.log("\n=== DSService - PosAnalyticsDSP Request ===");
+    // ✅ BEFORE handler: Fetch and populate data BEFORE CAP processes query
+    this.before("READ", "PosAnalyticsDSP", async (req) => {
+      console.log("\n=== DSService - BEFORE READ (Data Population) ===");
 
-      // Extract date parameters
       const { startDate, endDate } = extractDateParams(
         req.query, 
         this.lastStartDate, 
@@ -155,26 +154,47 @@ module.exports = class DSService extends cds.ApplicationService {
       this.lastStartDate = startDate;
       this.lastEndDate = endDate;
 
-      // Fetch data from Datasphere
-      const apiUrl = `POS/4AM_POS_01/_4AM_POS_01(IP_START_DATE=${startDate},IP_END_DATE=${endDate})/Set`;
-      
-      console.log(`📡 Fetching from: ${apiUrl}`);
+      const cacheKey = `${startDate}_${endDate}`;
 
-      const results = await datasphere.send("GET", apiUrl, { headers: {}, params: req.query });
+      // Clear cache after 5 minutes
+      if (this.dataCache.has(cacheKey)) {
+        const cacheTime = this.dataCache.get(cacheKey);
+        if (Date.now() - cacheTime > 300000) { // 5 minutes
+          this.dataCache.delete(cacheKey);
+        } else {
+          console.log(`✅ Using cached data for ${cacheKey}`);
+          return; // Let CAP handle the query against cached data
+        }
+      }
+
+      console.log(`📡 Fetching fresh data for: ${cacheKey}`);
+
+      const apiUrl = `POS/4AM_POS_01/_4AM_POS_01(IP_START_DATE=${startDate},IP_END_DATE=${endDate})/Set`;
+      const results = await datasphere.send("GET", apiUrl, { headers: {} });
 
       console.log(`✅ Retrieved ${results.length} records from Datasphere`);
-      // Parse out the JSON result
-      console.log("query:", JSON.stringify(req.query, null, 2));
 
-      // Map results
-      const data = results.map(item => 
+      // Clear existing data for this entity (optional - depends on your use case)
+      await DELETE.from('DSService.PosAnalyticsDSP');
+
+      // Map and INSERT into CAP's database
+      const mappedData = results.map(item => 
         mapDatasphereRecord(item, startDate, endDate)
       );
 
-      console.log(`✅ Returning ${data.length} records\n`);
-      console.log("\n=== DSService - PosAnalyticsDSP Request ===");
-      console.log("📊 Apply clause:", JSON.stringify(req.query.SELECT?.groupBy || req.query.SELECT?.having, null, 2));
-      return data;
+      await INSERT.into('DSService.PosAnalyticsDSP').entries(mappedData);
+
+      // Store timestamp instead of boolean
+      this.dataCache.set(cacheKey, Date.now());
+      console.log(`💾 Inserted ${mappedData.length} records into CAP database`);
+    });
+
+    // ✅ AFTER handler: Log what CAP returned (optional debugging)
+    this.after("READ", "PosAnalyticsDSP", (data, req) => {
+      console.log(`\n✅ CAP returned ${Array.isArray(data) ? data.length : 1} aggregated records`);
+      if (req.query.SELECT?.groupBy) {
+        console.log(`📊 Aggregation applied: ${req.query.SELECT.groupBy.map(g => g.ref?.[0]).join(', ')}`);
+      }
     });
 
     await super.init();

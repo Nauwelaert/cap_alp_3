@@ -17,7 +17,9 @@
     "@sap/xssec": "^4.2.7",
     "@ui5/cli": "^4.0.30",
     "express": "^4",
-    "passport": "^0.7.0"
+    "passport": "^0.7.0",
+    "@cap-js/sqlite": "^2.0.3"
+    
   },
   "devDependencies": {
     "@sap/cds-dk": "^9.4.1",
@@ -86,10 +88,12 @@
           "path": "datasphere/consumption/analytical"
         }
       },
-      "db": false
-    },
-    "folders": {
-      "db": "false"
+      "db": {
+        "kind": "sqlite",
+        "credentials": {
+          "url": ":memory:"
+        }
+      }
     }
   },
   "workspaces": [
