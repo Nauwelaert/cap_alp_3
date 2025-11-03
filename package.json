@@ -17,8 +17,7 @@
     "@sap/xssec": "^4.2.7",
     "@ui5/cli": "^4.0.30",
     "express": "^4",
-    "passport": "^0.7.0",
-    "@cap-js/sqlite": "^2.0.3"
+    "passport": "^0.7.0"
     
   },
   "devDependencies": {
@@ -79,6 +78,7 @@
       "odata_new_parser": true
     },
     "requires": {
+      "db": false,
       "datasphere": {
         "kind": "odata-v4",
         "crsf": true,
@@ -86,12 +86,6 @@
           "destination": "datasphere",
           "forwardAuthToken": true,
           "path": "datasphere/consumption/analytical"
-        }
-      },
-      "db": {
-        "kind": "sqlite",
-        "credentials": {
-          "url": ":memory:"
         }
       }
     }
